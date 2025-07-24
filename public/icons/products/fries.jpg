@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="fries-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffd966" />
+      <stop offset="100%" stop-color="#e6b800" />
+    </linearGradient>
+    <linearGradient id="box-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e74c3c" />
+      <stop offset="100%" stop-color="#c0392b" />
+    </linearGradient>
+    <linearGradient id="sauce-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8c3e2c" />
+      <stop offset="100%" stop-color="#6b2e20" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Box -->
+  <path d="M40,60 L40,150 L160,150 L160,60 L130,40 L70,40 Z" fill="url(#box-gradient)" />
+  
+  <!-- Box Front -->
+  <path d="M40,150 L40,60 L70,40 L70,130 Z" fill="#b7241d" />
+  <path d="M160,150 L160,60 L130,40 L130,130 Z" fill="#b7241d" />
+  
+  <!-- Box Stripe -->
+  <rect x="40" y="90" width="120" height="10" fill="#ffffff" />
+  
+  <!-- Sauce Container -->
+  <ellipse cx="100" cy="70" rx="25" ry="15" fill="url(#sauce-gradient)" />
+  
+  <!-- Fries -->
+  <rect x="60" y="50" width="8" height="70" rx="2" fill="url(#fries-gradient)" />
+  <rect x="75" y="45" width="8" height="75" rx="2" fill="url(#fries-gradient)" />
+  <rect x="90" y="40" width="8" height="80" rx="2" fill="url(#fries-gradient)" />
+  <rect x="105" y="45" width="8" height="75" rx="2" fill="url(#fries-gradient)" />
+  <rect x="120" y="50" width="8" height="70" rx="2" fill="url(#fries-gradient)" />
+  <rect x="135" y="55" width="8" height="65" rx="2" fill="url(#fries-gradient)" />
+  
+  <!-- Sauce Drips -->
+  <path d="M95,70 Q93,90 90,100" stroke="url(#sauce-gradient)" stroke-width="3" fill="none" />
+  <path d="M105,70 Q107,85 110,95" stroke="url(#sauce-gradient)" stroke-width="3" fill="none" />
+</svg>
