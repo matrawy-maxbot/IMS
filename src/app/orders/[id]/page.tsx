@@ -5,13 +5,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ArrowLeft, Printer, Download, Package, Edit, Trash2, Clock, CreditCard, Truck, User, Phone, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
+import { use } from "react";
 
-export default function OrderDetailsPage({ params }: { params: { id: string } }) {
-  // في الواقع، ستقوم بجلب بيانات الطلب باستخدام معرف الطلب (params.id)
+export default function OrderDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  // Unwrap params using React.use()
+  const resolvedParams = use(params);
+  const id = resolvedParams.id;
+  // في الواقع، ستقوم بجلب بيانات الطلب باستخدام معرف الطلب (id)
   // هذه بيانات تجريبية فقط
   const order = {
-    id: params.id,
-    orderNumber: "ORD-" + params.id,
+    id,
+    orderNumber: "ORD-" + id,
     date: "2023-06-15",
     status: "مكتمل",
     paymentMethod: "بطاقة ائتمان",

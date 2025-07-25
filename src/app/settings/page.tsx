@@ -88,7 +88,7 @@ export default function SettingsPage() {
   };
 
   // تعريف دالة حذف مستخدم
-  const handleDeleteUser = (userName) => {
+  const handleDeleteUser = (userName: string) => {
     // استخدام مكون تأكيد الحذف بدلاً من confirm التقليدية
     showDeleteConfirmation({
       title: "حذف المستخدم",
@@ -120,7 +120,7 @@ export default function SettingsPage() {
   };
 
   // تعريف دالة تعديل دور
-  const handleEditRole = (role) => {
+  const handleEditRole = (role: any) => {
     showRoleDialog({
       role: {
         name: role.role,
@@ -139,7 +139,7 @@ export default function SettingsPage() {
   };
 
   // تعريف دالة إدارة صلاحيات دور
-  const handleManagePermissions = (role) => {
+  const handleManagePermissions = (role: any) => {
     // بيانات الصلاحيات الافتراضية للأدوار (في التطبيق الحقيقي ستأتي من قاعدة البيانات)
     const defaultPermissions = {
       "مدير": {
@@ -166,7 +166,7 @@ export default function SettingsPage() {
     };
 
     // الحصول على الصلاحيات الحالية للدور (إذا كانت موجودة) أو استخدام صلاحيات فارغة
-    const initialPermissions = defaultPermissions[role.role] || {};
+    const initialPermissions = defaultPermissions[role.role as keyof typeof defaultPermissions] || {};
 
     showPermissionsDialog({
       roleName: role.role,
