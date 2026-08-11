@@ -30,12 +30,10 @@
   "increaseFromLastMonth": "+{{count}} من الشهر الماضي",
   "product": "المنتج",
   "quantity": "الكمية",
-  "sales": "المبيعات",
   "percentage": "النسبة",
   "currentQuantity": "الكمية الحالية",
   "minimumLevel": "الحد الأدنى",
   "lastOrderDate": "آخر طلب",
-  "status": "الحالة",
   "currentYear": "2023",
   "previousYear": "2022",
   "months": {
@@ -161,13 +159,9 @@
     "customer4": "مؤسسة النور",
     "customer5": "فهد عبدالله"
   },
-  "lowStockProducts": "منتجات منخفضة المخزون",
-  "topCustomers": "أفضل العملاء",
   "newProductsThisMonthText": "+{count} منتج جديد هذا الشهر",
   "increaseFromLastMonthText": "+{count} من الشهر الماضي",
-  "productCountText": "{count} منتج ({percentage}%)",
   "newCustomersThisMonthText": "+{count} عميل جديد هذا الشهر",
   "topCustomersDescText": "أفضل العملاء في آخر {period} شهر",
-  "selectPeriod": "تحديد الفترة",
   "productCountText": "{count} منتج ({percentage}%)"
 }

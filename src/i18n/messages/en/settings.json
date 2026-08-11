@@ -51,7 +51,6 @@
   "currencySymbol": "Currency Symbol",
   "taxRate": "Tax Rate",
   "taxNumberLabel": "Tax Number Label",
-  "users": "Users",
   "manageUsers": "Manage system users and their permissions",
   "userName": "User",
   "userEmail": "Email",

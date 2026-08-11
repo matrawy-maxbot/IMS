@@ -30,12 +30,10 @@
   "increaseFromLastMonth": "+{{count}} from last month",
   "product": "Product",
   "quantity": "Quantity",
-  "sales": "Sales",
   "percentage": "Percentage",
   "currentQuantity": "Current Quantity",
   "minimumLevel": "Minimum Level",
   "lastOrderDate": "Last Order",
-  "status": "Status",
   "currentYear": "2023",
   "previousYear": "2022",
   "months": {
@@ -161,13 +159,9 @@
     "customer4": "Al-Nour Foundation",
     "customer5": "Fahd Abdullah"
   },
-  "lowStockProducts": "Low Stock Products",
-  "topCustomers": "Top Customers",
   "newProductsThisMonthText": "+{count} new products this month",
   "increaseFromLastMonthText": "+{count} from last month",
-  "productCountText": "{count} product ({percentage}%)",
   "newCustomersThisMonthText": "+{count} new customers this month",
   "topCustomersDescText": "Top customers in the last {period} months",
-  "selectPeriod": "Select Period",
   "productCountText": "{count} product ({percentage}%)"
 }
