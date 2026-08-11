@@ -1,0 +1,43 @@
+{
+  "title": "Add New Order",
+  "backToOrders": "Back to Orders",
+  "currency": "SAR",
+  "customerInfo": {
+    "title": "Customer Information",
+    "searchLabel": "Search for Customer",
+    "searchPlaceholder": "Customer name or phone number",
+    "searchButton": "Search",
+    "phone": "Phone Number",
+    "email": "Email"
+  },
+  "products": {
+    "title": "Products",
+    "addButton": "Add Product",
+    "emptyMessage": "No products added. Click \"Add Product\" to add products to the order."
+  },
+  "orderDetails": {
+    "title": "Order Details",
+    "dateLabel": "Order Date",
+    "paymentLabel": "Payment Method",
+    "paymentPlaceholder": "Select payment method",
+    "paymentCash": "Cash",
+    "paymentCard": "Credit Card",
+    "paymentTransfer": "Bank Transfer",
+    "shippingLabel": "Shipping Method",
+    "shippingPlaceholder": "Select shipping method",
+    "shippingStandard": "Standard Shipping",
+    "shippingExpress": "Express Shipping",
+    "shippingPickup": "Store Pickup",
+    "notesLabel": "Notes",
+    "notesPlaceholder": "Any additional notes about the order"
+  },
+  "summary": {
+    "title": "Order Summary",
+    "subtotal": "Subtotal",
+    "tax": "Tax (15%)",
+    "shipping": "Shipping",
+    "discount": "Discount",
+    "total": "Total",
+    "confirmButton": "Confirm Order"
+  }
+}

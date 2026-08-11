@@ -1,0 +1,12 @@
+{
+  "dashboard": "Dashboard",
+  "addOrder": "Add Order",
+  "products": "Products",
+  "orders": "Orders",
+  "customers": "Customers",
+  "transactions": "Transactions",
+  "auditLog": "Audit Log",
+  "reports": "Reports",
+  "settings": "Settings",
+  "help": "Help & Support"
+}

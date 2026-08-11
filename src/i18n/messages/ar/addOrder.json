@@ -1,0 +1,43 @@
+{
+  "title": "إضافة طلب جديد",
+  "backToOrders": "العودة للطلبات",
+  "currency": "ريال",
+  "customerInfo": {
+    "title": "معلومات العميل",
+    "searchLabel": "بحث عن عميل",
+    "searchPlaceholder": "اسم العميل أو رقم الهاتف",
+    "searchButton": "بحث",
+    "phone": "رقم الهاتف",
+    "email": "البريد الإلكتروني"
+  },
+  "products": {
+    "title": "المنتجات",
+    "addButton": "إضافة منتج",
+    "emptyMessage": "لا توجد منتجات مضافة. اضغط على \"إضافة منتج\" لإضافة منتجات للطلب."
+  },
+  "orderDetails": {
+    "title": "تفاصيل الطلب",
+    "dateLabel": "تاريخ الطلب",
+    "paymentLabel": "طريقة الدفع",
+    "paymentPlaceholder": "اختر طريقة الدفع",
+    "paymentCash": "نقدي",
+    "paymentCard": "بطاقة ائتمان",
+    "paymentTransfer": "تحويل بنكي",
+    "shippingLabel": "طريقة الشحن",
+    "shippingPlaceholder": "اختر طريقة الشحن",
+    "shippingStandard": "شحن قياسي",
+    "shippingExpress": "شحن سريع",
+    "shippingPickup": "استلام من المتجر",
+    "notesLabel": "ملاحظات",
+    "notesPlaceholder": "أي ملاحظات إضافية حول الطلب"
+  },
+  "summary": {
+    "title": "ملخص الطلب",
+    "subtotal": "المجموع الفرعي",
+    "tax": "الضريبة (15%)",
+    "shipping": "الشحن",
+    "discount": "الخصم",
+    "total": "الإجمالي",
+    "confirmButton": "تأكيد الطلب"
+  }
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogContent,
@@ -41,6 +42,8 @@ export function BackupDialog({
     { id: "5", name: "نسخة احتياطية يدوية", date: "2023-05-25 16:45:00", size: "42.9 MB", type: "يدوية" },
   ],
 }: BackupDialogProps) {
+  const t = useTranslations("dialogs.backup");
+  const tCommon = useTranslations("common");
   const [selectedBackupId, setSelectedBackupId] = useState<string | null>(null);
 
   const handleSelectBackup = (backupId: string) => {
@@ -63,9 +66,9 @@ export function BackupDialog({
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleCancel()}>
       <DialogContent className="font-tajawal sm:max-w-3xl">
         <DialogHeader>
-          <DialogTitle>استعادة من نسخة احتياطية</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
           <DialogDescription>
-            اختر النسخة الاحتياطية التي ترغب في استعادة النظام منها. سيتم إعادة تشغيل النظام بعد الاستعادة.
+            {t("description")}
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -73,10 +76,10 @@ export function BackupDialog({
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[50px]"></TableHead>
-                <TableHead>اسم النسخة</TableHead>
-                <TableHead>التاريخ</TableHead>
-                <TableHead>الحجم</TableHead>
-                <TableHead>النوع</TableHead>
+                <TableHead>{t("backupName")}</TableHead>
+                <TableHead>{t("backupDate")}</TableHead>
+                <TableHead>{t("backupSize")}</TableHead>
+                <TableHead>{t("backupType")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -113,8 +116,8 @@ export function BackupDialog({
                     </div>
                   </TableCell>
                   <TableCell>
-                    <div className={`px-2 py-1 rounded-full text-xs inline-block ${backup.type === "تلقائية" ? "bg-blue-100 text-blue-800" : "bg-green-100 text-green-800"}`}>
-                      {backup.type}
+                    <div className={`px-2 py-1 rounded-full text-xs inline-block ${backup.type === "تلقائية" || backup.type === "Automatic" ? "bg-blue-100 text-blue-800" : "bg-green-100 text-green-800"}`}>
+                      {backup.type === "تلقائية" || backup.type === "Automatic" ? t("automatic") : t("manual")}
                     </div>
                   </TableCell>
                 </TableRow>
@@ -123,14 +126,14 @@ export function BackupDialog({
           </Table>
         </div>
         <DialogFooter className="sm:justify-between">
-          <Button variant="outline" onClick={handleCancel}>إلغاء</Button>
+          <Button variant="outline" onClick={handleCancel}>{tCommon("cancel")}</Button>
           <Button 
             onClick={handleRestore} 
             disabled={!selectedBackupId}
             className="flex items-center gap-1"
           >
             <Database className="h-4 w-4" />
-            <span>استعادة النسخة المحددة</span>
+            <span>{t("restore")}</span>
           </Button>
         </DialogFooter>
       </DialogContent>

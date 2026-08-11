@@ -6,24 +6,28 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Download, Calendar, Filter, BarChart, LineChart, PieChart, TrendingUp, TrendingDown, DollarSign, Package, Users, ShoppingCart } from "lucide-react";
+import { useTranslations } from 'next-intl';
 
 export default function ReportsPage() {
+  const t = useTranslations('reports');
+  const tCommon = useTranslations('common');
+  
   return (
     <div className="flex flex-col gap-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">التقارير والإحصائيات</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
         <div className="flex items-center gap-2">
           <Button variant="outline" className="flex items-center gap-1">
             <Calendar className="h-4 w-4" />
-            <span>تحديد الفترة</span>
+            <span>{t('selectPeriod')}</span>
           </Button>
           <Button variant="outline" className="flex items-center gap-1">
             <Filter className="h-4 w-4" />
-            <span>تصفية</span>
+            <span>{tCommon('filter')}</span>
           </Button>
           <Button className="flex items-center gap-1">
             <Download className="h-4 w-4" />
-            <span>تصدير</span>
+            <span>{tCommon('export')}</span>
           </Button>
         </div>
       </div>
@@ -33,25 +37,25 @@ export default function ReportsPage() {
           <TabsTrigger value="sales" className="py-2">
             <div className="flex items-center gap-2">
               <BarChart className="h-4 w-4" />
-              <span>المبيعات</span>
+              <span>{t('sales')}</span>
             </div>
           </TabsTrigger>
           <TabsTrigger value="inventory" className="py-2">
             <div className="flex items-center gap-2">
               <Package className="h-4 w-4" />
-              <span>المخزون</span>
+              <span>{t('inventory')}</span>
             </div>
           </TabsTrigger>
           <TabsTrigger value="customers" className="py-2">
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4" />
-              <span>العملاء</span>
+              <span>{t('customers')}</span>
             </div>
           </TabsTrigger>
           <TabsTrigger value="financial" className="py-2">
             <div className="flex items-center gap-2">
               <DollarSign className="h-4 w-4" />
-              <span>المالية</span>
+              <span>{t('financial')}</span>
             </div>
           </TabsTrigger>
         </TabsList>
@@ -61,14 +65,14 @@ export default function ReportsPage() {
           <div className="grid gap-4 md:grid-cols-3">
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">إجمالي المبيعات</CardTitle>
-                <CardDescription>آخر 30 يوم</CardDescription>
+                <CardTitle className="text-sm font-medium">{t('totalSales')}</CardTitle>
+                <CardDescription>{t('last30Days')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">45,231 ريال</div>
+                <div className="text-2xl font-bold">{t('amount45231')}</div>
                 <div className="flex items-center pt-1 text-xs text-green-500">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  <span>+12.5% من الشهر الماضي</span>
+                  <span>{t('trendingUp')} {t('percent125')} {t('fromLastMonth')}</span>
                 </div>
                 <div className="mt-4 h-[80px] w-full">
                   {/* رسم بياني للمبيعات */}
@@ -77,7 +81,7 @@ export default function ReportsPage() {
                       <div 
                         key={i} 
                         className="bg-primary flex-1 rounded-sm" 
-                        style={{ height: `${10 + Math.random() * 90}%` }}
+                        style={{ height: `${Math.round(10 + Math.random() * 90)}%` }}
                       ></div>
                     ))}
                   </div>
@@ -87,14 +91,14 @@ export default function ReportsPage() {
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">عدد الطلبات</CardTitle>
-                <CardDescription>آخر 30 يوم</CardDescription>
+                <CardTitle className="text-sm font-medium">{t('ordersCount')}</CardTitle>
+                <CardDescription>{t('last30Days')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">128</div>
+                <div className="text-2xl font-bold">{t('count128')}</div>
                 <div className="flex items-center pt-1 text-xs text-green-500">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  <span>+8.2% من الشهر الماضي</span>
+                  <span>{t('trendingUp')} {t('percent82')} {t('fromLastMonth')}</span>
                 </div>
                 <div className="mt-4 h-[80px] w-full">
                   {/* رسم بياني للطلبات */}
@@ -103,7 +107,7 @@ export default function ReportsPage() {
                       <div 
                         key={i} 
                         className="bg-primary flex-1 rounded-sm" 
-                        style={{ height: `${10 + Math.random() * 90}%` }}
+                        style={{ height: `${Math.round(10 + Math.random() * 90)}%` }}
                       ></div>
                     ))}
                   </div>
@@ -113,14 +117,14 @@ export default function ReportsPage() {
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">متوسط قيمة الطلب</CardTitle>
-                <CardDescription>آخر 30 يوم</CardDescription>
+                <CardTitle className="text-sm font-medium">{t('averageOrderValue')}</CardTitle>
+                <CardDescription>{t('last30Days')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">353 ريال</div>
+                <div className="text-2xl font-bold">{t('amount353')}</div>
                 <div className="flex items-center pt-1 text-xs text-red-500">
                   <TrendingDown className="h-3 w-3 mr-1" />
-                  <span>-2.1% من الشهر الماضي</span>
+                  <span>{t('trendingDown')} {t('percent21')} {t('fromLastMonth')}</span>
                 </div>
                 <div className="mt-4 h-[80px] w-full">
                   {/* رسم بياني لمتوسط قيمة الطلب */}
@@ -129,7 +133,7 @@ export default function ReportsPage() {
                       <div 
                         key={i} 
                         className="bg-primary flex-1 rounded-sm" 
-                        style={{ height: `${10 + Math.random() * 90}%` }}
+                        style={{ height: `${Math.round(10 + Math.random() * 90)}%` }}
                       ></div>
                     ))}
                   </div>
@@ -140,26 +144,26 @@ export default function ReportsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>تحليل المبيعات الشهرية</CardTitle>
-              <CardDescription>مقارنة المبيعات الشهرية للعام الحالي مع العام السابق</CardDescription>
+              <CardTitle>{t('monthlySalesAnalysis')}</CardTitle>
+              <CardDescription>{t('monthlySalesAnalysisDescription')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="h-[300px] w-full">
                 {/* رسم بياني للمبيعات الشهرية */}
                 <div className="flex h-full items-end gap-2">
                   {[
-                    { month: "يناير", current: 12500, previous: 10200 },
-                    { month: "فبراير", current: 15000, previous: 12800 },
-                    { month: "مارس", current: 18200, previous: 15500 },
-                    { month: "أبريل", current: 22000, previous: 18000 },
-                    { month: "مايو", current: 25500, previous: 21000 },
-                    { month: "يونيو", current: 28000, previous: 24500 },
-                    { month: "يوليو", current: 32000, previous: 27000 },
-                    { month: "أغسطس", current: 35000, previous: 30000 },
-                    { month: "سبتمبر", current: 38000, previous: 33000 },
-                    { month: "أكتوبر", current: 42000, previous: 36000 },
-                    { month: "نوفمبر", current: 45000, previous: 39000 },
-                    { month: "ديسمبر", current: 50000, previous: 42000 }
+                    { month: t('months.january'), current: 12500, previous: 10200 },
+                    { month: t('months.february'), current: 15000, previous: 12800 },
+                    { month: t('months.march'), current: 18200, previous: 15500 },
+                    { month: t('months.april'), current: 22000, previous: 18000 },
+                    { month: t('months.may'), current: 25500, previous: 21000 },
+                    { month: t('months.june'), current: 28000, previous: 24500 },
+                    { month: t('months.july'), current: 32000, previous: 27000 },
+                    { month: t('months.august'), current: 35000, previous: 30000 },
+                    { month: t('months.september'), current: 38000, previous: 33000 },
+                    { month: t('months.october'), current: 42000, previous: 36000 },
+                    { month: t('months.november'), current: 45000, previous: 39000 },
+                    { month: t('months.december'), current: 50000, previous: 42000 }
                   ].map((item, index) => (
                     <div key={index} className="flex-1 flex flex-col items-center gap-1">
                       <div className="w-full flex gap-1 justify-center h-[250px] items-end">
@@ -177,14 +181,14 @@ export default function ReportsPage() {
                   ))}
                 </div>
               </div>
-              <div className="flex items-center justify-center gap-4 mt-4">
+                <div className="flex items-center justify-center gap-4 mt-4">
                 <div className="flex items-center gap-1">
                   <div className="h-3 w-3 rounded-sm bg-primary"></div>
-                  <span className="text-sm">2023</span>
+                  <span className="text-sm">{t('currentYear')}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="h-3 w-3 rounded-sm bg-muted"></div>
-                  <span className="text-sm">2022</span>
+                  <span className="text-sm">{t('previousYear')}</span>
                 </div>
               </div>
             </CardContent>
@@ -193,31 +197,31 @@ export default function ReportsPage() {
           <div className="grid gap-6 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle>أفضل المنتجات مبيعاً</CardTitle>
-                <CardDescription>آخر 30 يوم</CardDescription>
+                <CardTitle>{t('topSellingProducts')}</CardTitle>
+                <CardDescription>{t('last30Days')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>المنتج</TableHead>
-                      <TableHead>الكمية</TableHead>
-                      <TableHead>المبيعات</TableHead>
-                      <TableHead>النسبة</TableHead>
+                      <TableHead>{t('product')}</TableHead>
+                      <TableHead>{t('quantity')}</TableHead>
+                      <TableHead>{t('sales')}</TableHead>
+                      <TableHead>{t('percentage')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {[
-                      { name: "لابتوب HP ProBook", quantity: 25, sales: 87500, percentage: 28 },
-                      { name: "آيفون 13 برو", quantity: 18, sales: 72000, percentage: 23 },
-                      { name: "سماعات سوني", quantity: 42, sales: 37800, percentage: 12 },
-                      { name: "ساعة سامسونج", quantity: 30, sales: 30000, percentage: 10 },
-                      { name: "شاشة LG", quantity: 15, sales: 22500, percentage: 7 }
+                      { name: t('topProducts.hp'), quantity: 25, sales: 87500, percentage: 28 },
+                      { name: t('topProducts.iphone'), quantity: 18, sales: 72000, percentage: 23 },
+                      { name: t('topProducts.sony'), quantity: 42, sales: 37800, percentage: 12 },
+                      { name: t('topProducts.samsung'), quantity: 30, sales: 30000, percentage: 10 },
+                      { name: t('topProducts.lg'), quantity: 15, sales: 22500, percentage: 7 }
                     ].map((product, index) => (
                       <TableRow key={index}>
                         <TableCell className="font-medium">{product.name}</TableCell>
                         <TableCell>{product.quantity}</TableCell>
-                        <TableCell>{product.sales} ريال</TableCell>
+                        <TableCell>{product.sales} {t('currency')}</TableCell>
                         <TableCell>
                           <div className="flex items-center gap-2">
                             <div className="w-full h-2 bg-muted rounded-full">
@@ -238,8 +242,8 @@ export default function ReportsPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>المبيعات حسب الفئة</CardTitle>
-                <CardDescription>آخر 30 يوم</CardDescription>
+                <CardTitle>{t('salesByCategory')}</CardTitle>
+                <CardDescription>{t('last30Days')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-center py-4">
@@ -254,10 +258,10 @@ export default function ReportsPage() {
                 </div>
                 <div className="space-y-2 mt-4">
                   {[
-                    { category: "إلكترونيات", sales: 125000, percentage: 40, color: "bg-primary" },
-                    { category: "أجهزة منزلية", sales: 78000, percentage: 25, color: "bg-blue-500" },
-                    { category: "هواتف ذكية", sales: 62500, percentage: 20, color: "bg-green-500" },
-                    { category: "إكسسوارات", sales: 46900, percentage: 15, color: "bg-yellow-500" }
+                    { category: t('categories.electronics'), sales: 125000, percentage: 40, color: "bg-primary" },
+                    { category: t('categories.homeAppliances'), sales: 78000, percentage: 25, color: "bg-blue-500" },
+                    { category: t('categories.smartphones'), sales: 62500, percentage: 20, color: "bg-green-500" },
+                    { category: t('categories.accessories'), sales: 46900, percentage: 15, color: "bg-yellow-500" }
                   ].map((category, index) => (
                     <div key={index} className="flex items-center gap-2">
                       <div className={`h-3 w-3 rounded-sm ${category.color}`}></div>
@@ -286,42 +290,42 @@ export default function ReportsPage() {
           <div className="grid gap-4 md:grid-cols-3">
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">إجمالي المنتجات</CardTitle>
-                <CardDescription>جميع المنتجات في المخزون</CardDescription>
+                <CardTitle className="text-sm font-medium">{t('totalProducts')}</CardTitle>
+                <CardDescription>{t('allProductsInInventory')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">1,254</div>
+                <div className="text-2xl font-bold">{t('count1254')}</div>
                 <div className="flex items-center pt-1 text-xs text-green-500">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  <span>+24 منتج جديد هذا الشهر</span>
+                  <span>{t('newProductsThisMonthText', { count: 24 })}</span>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">قيمة المخزون</CardTitle>
-                <CardDescription>القيمة الإجمالية للمخزون</CardDescription>
+                <CardTitle className="text-sm font-medium">{t('inventoryValue')}</CardTitle>
+                <CardDescription>{t('inventoryValueDescription')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">325,750 ريال</div>
+                <div className="text-2xl font-bold">{t('amount325750')}</div>
                 <div className="flex items-center pt-1 text-xs text-green-500">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  <span>+5.2% من الشهر الماضي</span>
+                  <span>{t('trendingUp')} {t('percent52')} {t('fromLastMonth')}</span>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">منتجات منخفضة المخزون</CardTitle>
-                <CardDescription>تحتاج إلى إعادة الطلب</CardDescription>
+                <CardTitle className="text-sm font-medium">{t('lowStockProducts')}</CardTitle>
+                <CardDescription>{t('needsReorder')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">28</div>
+                <div className="text-2xl font-bold">{t('count28')}</div>
                 <div className="flex items-center pt-1 text-xs text-red-500">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  <span>+12 من الشهر الماضي</span>
+                  <span>{t('increaseFromLastMonthText', { count: 12 })}</span>
                 </div>
               </CardContent>
             </Card>
@@ -329,8 +333,8 @@ export default function ReportsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>حالة المخزون</CardTitle>
-              <CardDescription>توزيع المنتجات حسب حالة المخزون</CardDescription>
+              <CardTitle>{t('inventoryStatus')}</CardTitle>
+              <CardDescription>{t('inventoryStatusDescription')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex justify-center py-4">
@@ -346,16 +350,16 @@ export default function ReportsPage() {
               </div>
               <div className="space-y-2 mt-4">
                 {[
-                  { status: "مخزون كافي", count: 950, percentage: 75, color: "bg-green-500" },
-                  { status: "مخزون متوسط", count: 276, percentage: 22, color: "bg-yellow-500" },
-                  { status: "مخزون منخفض", count: 28, percentage: 3, color: "bg-red-500" }
+                  { status: t('stockStatus.sufficient'), count: 950, percentage: 75, color: "bg-green-500" },
+                  { status: t('stockStatus.medium'), count: 276, percentage: 22, color: "bg-yellow-500" },
+                  { status: t('stockStatus.low'), count: 28, percentage: 3, color: "bg-red-500" }
                 ].map((status, index) => (
                   <div key={index} className="flex items-center gap-2">
                     <div className={`h-3 w-3 rounded-sm ${status.color}`}></div>
                     <div className="flex-1">
                       <div className="flex justify-between">
                         <span>{status.status}</span>
-                        <span>{status.count} منتج ({status.percentage}%)</span>
+                        <span>{t('productCountText', { count: status.count, percentage: status.percentage })}</span>
                       </div>
                       <div className="w-full h-1 bg-muted rounded-full mt-1">
                         <div 
@@ -372,34 +376,34 @@ export default function ReportsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>المنتجات منخفضة المخزون</CardTitle>
-              <CardDescription>المنتجات التي تحتاج إلى إعادة الطلب</CardDescription>
+              <CardTitle>{t('lowStockProducts')}</CardTitle>
+              <CardDescription>{t('productsNeedingReorder')}</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>المنتج</TableHead>
-                    <TableHead>الكمية الحالية</TableHead>
-                    <TableHead>الحد الأدنى</TableHead>
-                    <TableHead>الحالة</TableHead>
-                    <TableHead>آخر طلب</TableHead>
+                    <TableHead>{t('product')}</TableHead>
+                    <TableHead>{t('currentQuantity')}</TableHead>
+                    <TableHead>{t('minimumLevel')}</TableHead>
+                    <TableHead>{tCommon('status')}</TableHead>
+                    <TableHead>{t('lastOrderDate')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {[
-                    { name: "لابتوب HP ProBook", current: 3, min: 5, status: "منخفض", lastOrder: "2023-05-15" },
-                    { name: "آيفون 13 برو", current: 2, min: 10, status: "منخفض جداً", lastOrder: "2023-06-02" },
-                    { name: "سماعات سوني", current: 4, min: 8, status: "منخفض", lastOrder: "2023-05-20" },
-                    { name: "ساعة سامسونج", current: 6, min: 10, status: "منخفض", lastOrder: "2023-06-10" },
-                    { name: "شاشة LG", current: 1, min: 5, status: "منخفض جداً", lastOrder: "2023-05-25" }
+                    { name: t('lowStockProductsNames.hp'), current: 3, min: 5, status: t('stockStatus.low'), lastOrder: "2023-05-15" },
+                    { name: t('lowStockProductsNames.iphone'), current: 2, min: 10, status: t('stockStatus.veryLow'), lastOrder: "2023-06-02" },
+                    { name: t('lowStockProductsNames.sony'), current: 4, min: 8, status: t('stockStatus.low'), lastOrder: "2023-05-20" },
+                    { name: t('lowStockProductsNames.samsung'), current: 6, min: 10, status: t('stockStatus.low'), lastOrder: "2023-06-10" },
+                    { name: t('lowStockProductsNames.lg'), current: 1, min: 5, status: t('stockStatus.veryLow'), lastOrder: "2023-05-25" }
                   ].map((product, index) => (
                     <TableRow key={index}>
                       <TableCell className="font-medium">{product.name}</TableCell>
                       <TableCell>{product.current}</TableCell>
                       <TableCell>{product.min}</TableCell>
                       <TableCell>
-                        <div className={`px-2 py-1 rounded-full text-xs inline-block ${product.status === "منخفض جداً" ? "bg-red-100 text-red-800" : "bg-yellow-100 text-yellow-800"}`}>
+                        <div className={`px-2 py-1 rounded-full text-xs inline-block ${product.status === t('stockStatus.veryLow') ? "bg-red-100 text-red-800" : "bg-yellow-100 text-yellow-800"}`}>
                           {product.status}
                         </div>
                       </TableCell>
@@ -417,42 +421,42 @@ export default function ReportsPage() {
           <div className="grid gap-4 md:grid-cols-3">
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">إجمالي العملاء</CardTitle>
-                <CardDescription>جميع العملاء المسجلين</CardDescription>
+                <CardTitle className="text-sm font-medium">{t('totalCustomers')}</CardTitle>
+                <CardDescription>{t('allRegisteredCustomers')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">1,842</div>
+                <div className="text-2xl font-bold">{t('count1842')}</div>
                 <div className="flex items-center pt-1 text-xs text-green-500">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  <span>+56 عميل جديد هذا الشهر</span>
+                  <span>{t('newCustomersThisMonthText', { count: 56 })}</span>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">متوسط قيمة العميل</CardTitle>
-                <CardDescription>متوسط المشتريات لكل عميل</CardDescription>
+                <CardTitle className="text-sm font-medium">{t('averageCustomerValue')}</CardTitle>
+                <CardDescription>{t('averageCustomerValueDesc')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">1,250 ريال</div>
+                <div className="text-2xl font-bold">{t('amount1250')}</div>
                 <div className="flex items-center pt-1 text-xs text-green-500">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  <span>+8.5% من الشهر الماضي</span>
+                  <span>{t('trendingUp')} {t('percent85')} {t('fromLastMonth')}</span>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">معدل الاحتفاظ بالعملاء</CardTitle>
-                <CardDescription>نسبة العملاء المتكررين</CardDescription>
+                <CardTitle className="text-sm font-medium">{t('customerRetentionRate')}</CardTitle>
+                <CardDescription>{t('repeatCustomerPercentage')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">78%</div>
+                <div className="text-2xl font-bold">{t('percent78')}</div>
                 <div className="flex items-center pt-1 text-xs text-green-500">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  <span>+2.3% من الشهر الماضي</span>
+                  <span>{t('trendingUp')} {t('percent23')} {t('fromLastMonth')}</span>
                 </div>
               </CardContent>
             </Card>
@@ -460,35 +464,35 @@ export default function ReportsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>أفضل العملاء</CardTitle>
-              <CardDescription>العملاء الأكثر إنفاقاً في آخر 12 شهر</CardDescription>
+              <CardTitle>{t('topCustomers')}</CardTitle>
+              <CardDescription>{t('topCustomersDescText', { period: 12 })}</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>العميل</TableHead>
-                    <TableHead>عدد الطلبات</TableHead>
-                    <TableHead>إجمالي المشتريات</TableHead>
-                    <TableHead>آخر طلب</TableHead>
-                    <TableHead>حالة العميل</TableHead>
+                    <TableHead>{t('customer')}</TableHead>
+                    <TableHead>{t('orderCount')}</TableHead>
+                    <TableHead>{t('totalPurchases')}</TableHead>
+                    <TableHead>{t('lastOrder')}</TableHead>
+                    <TableHead>{t('customerStatus')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {[
-                    { name: "محمد أحمد", orders: 24, total: 45000, lastOrder: "2023-06-10", status: "نشط" },
-                    { name: "شركة الأفق", orders: 18, total: 38500, lastOrder: "2023-06-05", status: "نشط" },
-                    { name: "سارة خالد", orders: 15, total: 32000, lastOrder: "2023-05-28", status: "نشط" },
-                    { name: "مؤسسة النور", orders: 12, total: 28500, lastOrder: "2023-06-12", status: "نشط" },
-                    { name: "فهد عبدالله", orders: 10, total: 22000, lastOrder: "2023-05-15", status: "غير نشط" }
+                    { name: t('topCustomersNames.customer1'), orders: 24, total: 45000, lastOrder: "2023-06-10", status: t('status.active') },
+                    { name: t('topCustomersNames.customer2'), orders: 18, total: 38500, lastOrder: "2023-06-05", status: t('status.active') },
+                    { name: t('topCustomersNames.customer3'), orders: 15, total: 32000, lastOrder: "2023-05-28", status: t('status.active') },
+                    { name: t('topCustomersNames.customer4'), orders: 12, total: 28500, lastOrder: "2023-06-12", status: t('status.active') },
+                    { name: t('topCustomersNames.customer5'), orders: 10, total: 22000, lastOrder: "2023-05-15", status: t('status.inactive') }
                   ].map((customer, index) => (
                     <TableRow key={index}>
                       <TableCell className="font-medium">{customer.name}</TableCell>
                       <TableCell>{customer.orders}</TableCell>
-                      <TableCell>{customer.total} ريال</TableCell>
+                      <TableCell>{customer.total} {t('currency')}</TableCell>
                       <TableCell>{customer.lastOrder}</TableCell>
                       <TableCell>
-                        <div className={`px-2 py-1 rounded-full text-xs inline-block ${customer.status === "نشط" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
+                        <div className={`px-2 py-1 rounded-full text-xs inline-block ${customer.status === t('status.active') ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
                           {customer.status}
                         </div>
                       </TableCell>
@@ -502,8 +506,8 @@ export default function ReportsPage() {
           <div className="grid gap-6 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle>توزيع العملاء حسب النوع</CardTitle>
-                <CardDescription>تصنيف العملاء</CardDescription>
+                <CardTitle>{t('customerDistributionByType')}</CardTitle>
+                <CardDescription>{t('customerClassification')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-center py-4">
@@ -518,9 +522,9 @@ export default function ReportsPage() {
                 </div>
                 <div className="space-y-2 mt-4">
                   {[
-                    { type: "أفراد", count: 1250, percentage: 68, color: "bg-primary" },
-                    { type: "شركات", count: 450, percentage: 24, color: "bg-blue-500" },
-                    { type: "جهات حكومية", count: 142, percentage: 8, color: "bg-green-500" }
+                    { type: t('customerType.individual'), count: 1250, percentage: 68, color: "bg-primary" },
+                    { type: t('customerType.company'), count: 450, percentage: 24, color: "bg-blue-500" },
+                    { type: t('customerType.government'), count: 142, percentage: 8, color: "bg-green-500" }
                   ].map((type, index) => (
                     <div key={index} className="flex items-center gap-2">
                       <div className={`h-3 w-3 rounded-sm ${type.color}`}></div>
@@ -544,20 +548,20 @@ export default function ReportsPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>نمو العملاء</CardTitle>
-                <CardDescription>عدد العملاء الجدد شهرياً</CardDescription>
+                <CardTitle>{t('customerGrowth')}</CardTitle>
+                <CardDescription>{t('newCustomersMonthly')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="h-[200px] w-full">
                   {/* رسم بياني لنمو العملاء */}
                   <div className="flex h-full items-end gap-2">
                     {[
-                      { month: "يناير", count: 35 },
-                      { month: "فبراير", count: 42 },
-                      { month: "مارس", count: 38 },
-                      { month: "أبريل", count: 45 },
-                      { month: "مايو", count: 50 },
-                      { month: "يونيو", count: 56 }
+                      { month: t('months.january'), count: 35 },
+                      { month: t('months.february'), count: 42 },
+                      { month: t('months.march'), count: 38 },
+                      { month: t('months.april'), count: 45 },
+                      { month: t('months.may'), count: 50 },
+                      { month: t('months.june'), count: 56 }
                     ].map((item, index) => (
                       <div key={index} className="flex-1 flex flex-col items-center gap-1">
                         <div 
@@ -580,42 +584,42 @@ export default function ReportsPage() {
           <div className="grid gap-4 md:grid-cols-3">
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">إجمالي الإيرادات</CardTitle>
-                <CardDescription>آخر 12 شهر</CardDescription>
+                <CardTitle className="text-sm font-medium">{t('totalRevenue')}</CardTitle>
+                <CardDescription>{t('last12Months')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">542,850 ريال</div>
+                <div className="text-2xl font-bold">{t('amount542850')}</div>
                 <div className="flex items-center pt-1 text-xs text-green-500">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  <span>+15.2% من العام الماضي</span>
+                  <span>{t('percentIncrease152')} {t('fromLastYear')}</span>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">إجمالي التكاليف</CardTitle>
-                <CardDescription>آخر 12 شهر</CardDescription>
+                <CardTitle className="text-sm font-medium">{t('totalCosts')}</CardTitle>
+                <CardDescription>{t('last12Months')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">325,710 ريال</div>
+                <div className="text-2xl font-bold">{t('amount325710')}</div>
                 <div className="flex items-center pt-1 text-xs text-red-500">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  <span>+8.7% من العام الماضي</span>
+                  <span>{t('percentIncrease87')} {t('fromLastYear')}</span>
                 </div>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium">صافي الربح</CardTitle>
-                <CardDescription>آخر 12 شهر</CardDescription>
+                <CardTitle className="text-sm font-medium">{t('netProfit')}</CardTitle>
+                <CardDescription>{t('last12Months')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">217,140 ريال</div>
+                <div className="text-2xl font-bold">{t('amount217140')}</div>
                 <div className="flex items-center pt-1 text-xs text-green-500">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  <span>+25.8% من العام الماضي</span>
+                  <span>{t('percentIncrease258')} {t('fromLastYear')}</span>
                 </div>
               </CardContent>
             </Card>
@@ -623,20 +627,20 @@ export default function ReportsPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>تحليل الإيرادات والتكاليف</CardTitle>
-              <CardDescription>مقارنة شهرية للإيرادات والتكاليف والأرباح</CardDescription>
+              <CardTitle>{t('revenueAndCostsAnalysis')}</CardTitle>
+              <CardDescription>{t('monthlyRevenueAndCostsComparison')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="h-[300px] w-full">
                 {/* رسم بياني للإيرادات والتكاليف */}
                 <div className="flex h-full items-end gap-2">
                   {[
-                    { month: "يناير", revenue: 35000, cost: 21000, profit: 14000 },
-                    { month: "فبراير", revenue: 42000, cost: 25200, profit: 16800 },
-                    { month: "مارس", revenue: 38000, cost: 22800, profit: 15200 },
-                    { month: "أبريل", revenue: 45000, cost: 27000, profit: 18000 },
-                    { month: "مايو", revenue: 50000, cost: 30000, profit: 20000 },
-                    { month: "يونيو", revenue: 56000, cost: 33600, profit: 22400 }
+                    { month: t('months.january'), revenue: 35000, cost: 21000, profit: 14000 },
+                    { month: t('months.february'), revenue: 42000, cost: 25200, profit: 16800 },
+                    { month: t('months.march'), revenue: 38000, cost: 22800, profit: 15200 },
+                    { month: t('months.april'), revenue: 45000, cost: 27000, profit: 18000 },
+                    { month: t('months.may'), revenue: 50000, cost: 30000, profit: 20000 },
+                    { month: t('months.june'), revenue: 56000, cost: 33600, profit: 22400 }
                   ].map((item, index) => (
                     <div key={index} className="flex-1 flex flex-col items-center gap-1">
                       <div className="w-full flex gap-1 justify-center h-[250px] items-end">
@@ -661,15 +665,15 @@ export default function ReportsPage() {
               <div className="flex items-center justify-center gap-4 mt-4">
                 <div className="flex items-center gap-1">
                   <div className="h-3 w-3 rounded-sm bg-primary"></div>
-                  <span className="text-sm">الإيرادات</span>
+                  <span className="text-sm">{t('revenue')}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="h-3 w-3 rounded-sm bg-red-500"></div>
-                  <span className="text-sm">التكاليف</span>
+                  <span className="text-sm">{t('costs')}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="h-3 w-3 rounded-sm bg-green-500"></div>
-                  <span className="text-sm">الأرباح</span>
+                  <span className="text-sm">{t('profit')}</span>
                 </div>
               </div>
             </CardContent>
@@ -678,8 +682,8 @@ export default function ReportsPage() {
           <div className="grid gap-6 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle>هامش الربح</CardTitle>
-                <CardDescription>نسبة الربح من الإيرادات</CardDescription>
+                <CardTitle>{t('profitMargin')}</CardTitle>
+                <CardDescription>{t('profitMarginDesc')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-col items-center justify-center py-4">
@@ -691,23 +695,23 @@ export default function ReportsPage() {
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="text-center">
                         <div className="text-3xl font-bold">40%</div>
-                        <div className="text-xs text-muted-foreground">هامش الربح</div>
+                        <div className="text-xs text-muted-foreground">{t('profitMargin')}</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="space-y-2 mt-4">
                   <div className="flex justify-between text-sm">
-                    <span>إجمالي الإيرادات:</span>
-                    <span className="font-medium">542,850 ريال</span>
+                    <span>{t('totalRevenue')}:</span>
+                    <span className="font-medium">{t('amount542850')}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span>إجمالي التكاليف:</span>
-                    <span className="font-medium">325,710 ريال</span>
+                    <span>{t('totalCosts')}:</span>
+                    <span className="font-medium">{t('amount325710')}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span>صافي الربح:</span>
-                    <span className="font-medium">217,140 ريال</span>
+                    <span>{t('netProfit')}:</span>
+                    <span className="font-medium">{t('amount217140')}</span>
                   </div>
                 </div>
               </CardContent>
@@ -715,8 +719,8 @@ export default function ReportsPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>توزيع التكاليف</CardTitle>
-                <CardDescription>تحليل التكاليف حسب النوع</CardDescription>
+                <CardTitle>{t('costDistribution')}</CardTitle>
+                <CardDescription>{t('costDistributionDesc')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-center py-4">
@@ -732,10 +736,10 @@ export default function ReportsPage() {
                 </div>
                 <div className="space-y-2 mt-4">
                   {[
-                    { type: "تكلفة البضاعة", amount: 227997, percentage: 70, color: "bg-primary" },
-                    { type: "تكاليف التشغيل", amount: 65142, percentage: 20, color: "bg-blue-500" },
-                    { type: "تكاليف الشحن", amount: 16285.5, percentage: 5, color: "bg-green-500" },
-                    { type: "تكاليف أخرى", amount: 16285.5, percentage: 5, color: "bg-yellow-500" }
+                    { type: t('costType.productCost'), amount: 227997, percentage: 70, color: "bg-primary" },
+                    { type: t('costType.operatingCosts'), amount: 65142, percentage: 20, color: "bg-blue-500" },
+                    { type: t('costType.shippingCosts'), amount: 16285.5, percentage: 5, color: "bg-green-500" },
+                    { type: t('costType.otherCosts'), amount: 16285.5, percentage: 5, color: "bg-yellow-500" }
                   ].map((cost, index) => (
                     <div key={index} className="flex items-center gap-2">
                       <div className={`h-3 w-3 rounded-sm ${cost.color}`}></div>

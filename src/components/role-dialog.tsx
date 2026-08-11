@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogContent,
@@ -24,7 +25,6 @@ interface RoleDialogProps {
   onClose: () => void;
   onSave: (roleData: RoleData) => void;
   role?: RoleData;
-  title?: string;
 }
 
 export function RoleDialog({
@@ -32,8 +32,9 @@ export function RoleDialog({
   onClose,
   onSave,
   role,
-  title = "إضافة دور جديد",
 }: RoleDialogProps) {
+  const t = useTranslations("dialogs.role");
+  const tCommon = useTranslations("common");
   const [roleData, setRoleData] = useState<RoleData>({
     name: "",
     description: "",
@@ -69,15 +70,15 @@ export function RoleDialog({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="font-tajawal sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-right">{title}</DialogTitle>
+          <DialogTitle className="text-right">{role ? t("titleEdit") : t("titleAdd")}</DialogTitle>
           <DialogDescription className="text-right">
-            أدخل معلومات الدور الوظيفي للمستخدمين في النظام.
+            {t("description")}
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right col-span-1">
-              اسم الدور
+              {t("name")}
             </Label>
             <Input
               id="name"
@@ -85,12 +86,12 @@ export function RoleDialog({
               value={roleData.name}
               onChange={handleChange}
               className="col-span-3"
-              placeholder="أدخل اسم الدور"
+              placeholder={t("namePlaceholder")}
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="description" className="text-right col-span-1">
-              الوصف
+              {t("roleDescription")}
             </Label>
             <Textarea
               id="description"
@@ -98,17 +99,17 @@ export function RoleDialog({
               value={roleData.description}
               onChange={handleChange}
               className="col-span-3"
-              placeholder="أدخل وصف الدور والمسؤوليات"
+              placeholder={t("descriptionPlaceholder")}
               rows={3}
             />
           </div>
         </div>
         <DialogFooter className="sm:justify-between">
           <Button variant="outline" onClick={onClose}>
-            إلغاء
+            {t("cancel")}
           </Button>
           <Button onClick={handleSave} disabled={!roleData.name.trim()}>
-            حفظ
+            {t("save")}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -6,8 +6,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { ArrowLeft, Edit, Trash2, User, Mail, Phone, MapPin, ShoppingCart, CreditCard, Calendar, Clock } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
+import { useTranslations } from 'next-intl';
 
 export default function CustomerDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const t = useTranslations('customers');
+  const tCommon = useTranslations('common');
+  const tOrders = useTranslations('orders');
+  
   // Unwrap params using React.use()
   const resolvedParams = use(params);
   const id = resolvedParams.id;
@@ -59,18 +64,18 @@ export default function CustomerDetailsPage({ params }: { params: Promise<{ id: 
               <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
-          <h1 className="text-3xl font-bold tracking-tight">تفاصيل العميل</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t('details')}</h1>
         </div>
         <div className="flex items-center gap-2">
           <Link href={`/customers/${customer.id}/edit`}>
             <Button className="flex items-center gap-1">
               <Edit className="h-4 w-4" />
-              <span>تعديل</span>
+              <span>{tCommon('edit')}</span>
             </Button>
           </Link>
           <Button variant="destructive" className="flex items-center gap-1">
             <Trash2 className="h-4 w-4" />
-            <span>حذف</span>
+            <span>{tCommon('delete')}</span>
           </Button>
         </div>
       </div>
@@ -107,30 +112,30 @@ export default function CustomerDetailsPage({ params }: { params: Promise<{ id: 
           <div className="grid gap-6 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl">معلومات العميل</CardTitle>
+                <CardTitle className="text-xl">{t('customerInfo')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-muted-foreground">تاريخ الانضمام</p>
+                    <p className="text-sm text-muted-foreground">{t('joinDate')}</p>
                     <p className="font-medium">{customer.joinDate}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">آخر عملية شراء</p>
+                    <p className="text-sm text-muted-foreground">{t('lastPurchase')}</p>
                     <p className="font-medium">{customer.lastPurchase}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">عدد الطلبات</p>
+                    <p className="text-sm text-muted-foreground">{t('ordersCount')}</p>
                     <p className="font-medium">{customer.totalOrders}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">إجمالي المشتريات</p>
-                    <p className="font-medium">{customer.totalSpent} ريال</p>
+                    <p className="text-sm text-muted-foreground">{t('totalSpent')}</p>
+                    <p className="font-medium">{customer.totalSpent} {t('currencySymbol')}</p>
                   </div>
                 </div>
                 
                 <div className="pt-2">
-                  <p className="text-sm text-muted-foreground mb-1">شروط الدفع</p>
+                  <p className="text-sm text-muted-foreground mb-1">{t('paymentTerms')}</p>
                   <div className="flex items-center gap-2">
                     <CreditCard className="h-4 w-4 text-muted-foreground" />
                     <span>{customer.paymentTerms}</span>
@@ -138,9 +143,9 @@ export default function CustomerDetailsPage({ params }: { params: Promise<{ id: 
                 </div>
                 
                 <div className="pt-2">
-                  <p className="text-sm text-muted-foreground mb-1">حد الائتمان</p>
+                  <p className="text-sm text-muted-foreground mb-1">{t('creditLimit')}</p>
                   <div className="flex items-center gap-2">
-                    <span className="font-medium">{customer.creditLimit} ريال</span>
+                    <span className="font-medium">{customer.creditLimit} {t('currencySymbol')}</span>
                     <div className="flex-1 h-2 bg-muted rounded-full">
                       <div 
                         className="h-2 bg-primary rounded-full" 
@@ -155,14 +160,14 @@ export default function CustomerDetailsPage({ params }: { params: Promise<{ id: 
                 
                 {customer.taxNumber && (
                   <div className="pt-2">
-                    <p className="text-sm text-muted-foreground mb-1">الرقم الضريبي</p>
+                    <p className="text-sm text-muted-foreground mb-1">{t('taxNumber')}</p>
                     <p className="font-medium">{customer.taxNumber}</p>
                   </div>
                 )}
                 
                 {customer.notes && (
                   <div className="pt-2">
-                    <p className="text-sm text-muted-foreground mb-1">ملاحظات</p>
+                    <p className="text-sm text-muted-foreground mb-1">{tCommon('notes')}</p>
                     <p className="text-sm">{customer.notes}</p>
                   </div>
                 )}
@@ -171,7 +176,7 @@ export default function CustomerDetailsPage({ params }: { params: Promise<{ id: 
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl">العنوان</CardTitle>
+                <CardTitle className="text-xl">{t('address')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start gap-2">
@@ -186,7 +191,7 @@ export default function CustomerDetailsPage({ params }: { params: Promise<{ id: 
                 
                 <div className="pt-4">
                   <Button variant="outline" className="w-full">
-                    عرض على الخريطة
+                    {t('viewOnMap')}
                   </Button>
                 </div>
               </CardContent>
@@ -195,10 +200,10 @@ export default function CustomerDetailsPage({ params }: { params: Promise<{ id: 
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-xl">مشتريات العميل</CardTitle>
+              <CardTitle className="text-xl">{t('purchaseHistory')}</CardTitle>
               <Link href={`/customers/${customer.id}/orders`}>
                 <Button variant="outline" size="sm">
-                  عرض الكل
+                  {t('viewAll')}
                 </Button>
               </Link>
             </CardHeader>
@@ -211,7 +216,7 @@ export default function CustomerDetailsPage({ params }: { params: Promise<{ id: 
                       style={{ height: `${(item.amount / 5000) * 150}px` }}
                     ></div>
                     <div className="text-xs mt-2 text-muted-foreground">{item.month}</div>
-                    <div className="text-xs font-medium">{item.amount > 0 ? `${item.amount} ر.س` : '-'}</div>
+                    <div className="text-xs font-medium">{item.amount > 0 ? `${item.amount} ${t('currencySymbolShort')}` : '-'}</div>
                   </div>
                 ))}
               </div>
@@ -222,29 +227,29 @@ export default function CustomerDetailsPage({ params }: { params: Promise<{ id: 
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">إجراءات سريعة</CardTitle>
+              <CardTitle className="text-xl">{t('quickActions')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               <Link href={`/add-order?customer=${customer.id}`}>
                 <Button className="w-full flex items-center gap-1" variant="outline">
                   <ShoppingCart className="h-4 w-4" />
-                  <span>إنشاء طلب جديد</span>
+                  <span>{t('createNewOrder')}</span>
                 </Button>
               </Link>
               <Button className="w-full flex items-center gap-1" variant="outline">
                 <Mail className="h-4 w-4" />
-                <span>إرسال بريد إلكتروني</span>
+                <span>{t('sendEmail')}</span>
               </Button>
               <Button className="w-full flex items-center gap-1" variant="outline">
                 <CreditCard className="h-4 w-4" />
-                <span>تعديل حد الائتمان</span>
+                <span>{t('updateCreditLimit')}</span>
               </Button>
             </CardContent>
           </Card>
           
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">آخر الطلبات</CardTitle>
+              <CardTitle className="text-xl">{t('recentOrders')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -255,9 +260,9 @@ export default function CustomerDetailsPage({ params }: { params: Promise<{ id: 
                         <ShoppingCart className="h-5 w-5 text-muted-foreground" />
                       </div>
                       <div className="flex-1">
-                        <div className="font-medium">طلب #{order.id}</div>
+                        <div className="font-medium">{t('orderNumberPrefix')} #{order.id}</div>
                         <div className="text-sm text-muted-foreground">
-                          {order.date} • {order.items} منتجات • {order.total} ريال
+                          {order.date} • {order.items} {t('products.title')} • {order.total} {t('currencySymbol')}
                         </div>
                       </div>
                       <div className={`px-2 py-1 rounded-full text-xs ${getStatusColor(order.status)}`}>
@@ -272,7 +277,7 @@ export default function CustomerDetailsPage({ params }: { params: Promise<{ id: 
                 <div className="mt-4 pt-4 border-t text-center">
                   <Link href={`/customers/${customer.id}/orders`}>
                     <Button variant="link" className="text-sm">
-                      عرض جميع الطلبات ({customer.orders.length})
+                      {t('viewAllOrders')} ({customer.orders.length})
                     </Button>
                   </Link>
                 </div>
@@ -282,16 +287,16 @@ export default function CustomerDetailsPage({ params }: { params: Promise<{ id: 
           
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">سجل النشاط</CardTitle>
+              <CardTitle className="text-xl">{t('activityLog')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {[
-                  { date: "2023-06-10 14:30", action: "إنشاء طلب جديد", details: "طلب #1001" },
-                  { date: "2023-05-22 11:15", action: "إنشاء طلب جديد", details: "طلب #1002" },
-                  { date: "2023-05-05 09:45", action: "تحديث معلومات العميل", details: "تم تحديث رقم الهاتف" },
-                  { date: "2023-04-15 16:20", action: "إنشاء طلب جديد", details: "طلب #1003" },
-                  { date: "2022-03-15 10:00", action: "إنشاء حساب", details: "تم تسجيل العميل" }
+                  { date: "2023-06-10 14:30", action: t('activityCreateOrder'), details: `${t('orderNumberPrefix')} #1001` },
+                  { date: "2023-05-22 11:15", action: t('activityCreateOrder'), details: `${t('orderNumberPrefix')} #1002` },
+                  { date: "2023-05-05 09:45", action: t('activityUpdateInfo'), details: t('activityUpdatePhone') },
+                  { date: "2023-04-15 16:20", action: t('activityCreateOrder'), details: `${t('orderNumberPrefix')} #1003` },
+                  { date: "2022-03-15 10:00", action: t('activityAccountCreated'), details: t('activityCustomerRegistered') }
                 ].map((activity, index) => (
                   <div key={index} className="flex items-start gap-2">
                     <div className="h-2 w-2 rounded-full bg-primary mt-2"></div>

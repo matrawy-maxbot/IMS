@@ -7,8 +7,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Plus, Search, Filter, Download, Eye, FileEdit, Trash2, Users, UserPlus, Phone } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useTranslations } from 'next-intl';
 
 export default function CustomersPage() {
+  const t = useTranslations('customers');
+  const tCommon = useTranslations('common');
   const [searchQuery, setSearchQuery] = useState("");
 
   // Mock data for customers
@@ -59,43 +62,43 @@ export default function CustomersPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">العملاء</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">إجمالي العملاء</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('totalCustomers')}</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">128</div>
             <p className="text-xs text-muted-foreground">
-              +8 عملاء جدد هذا الشهر
+              {t('newCustomersThisMonth')}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">عملاء جدد</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('newCustomers')}</CardTitle>
             <UserPlus className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">12</div>
             <p className="text-xs text-muted-foreground">
-              +20% مقارنة بالشهر الماضي
+              {t('comparisonWithLastMonth')}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">معدل الطلبات لكل عميل</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('averageOrdersPerCustomer')}</CardTitle>
             <Phone className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">3.5</div>
             <p className="text-xs text-muted-foreground">
-              +0.5 مقارنة بالشهر الماضي
+              {t('averageComparison')}
             </p>
           </CardContent>
         </Card>
@@ -103,7 +106,7 @@ export default function CustomersPage() {
 
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-2xl">قائمة العملاء</CardTitle>
+          <CardTitle className="text-2xl">{t('list')}</CardTitle>
           <div className="flex gap-2">
             <Button 
               variant="outline" 
@@ -111,12 +114,12 @@ export default function CustomersPage() {
               onClick={handleExport}
             >
               <Download className="h-4 w-4" />
-              <span>تصدير</span>
+              <span>{tCommon('export')}</span>
             </Button>
             <Link href="/customers/add">
               <Button className="flex items-center gap-1">
                 <Plus className="h-4 w-4" />
-                <span>إضافة عميل</span>
+                <span>{t('addCustomer')}</span>
               </Button>
             </Link>
           </div>
@@ -125,7 +128,7 @@ export default function CustomersPage() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
             <div className="flex items-center gap-2 w-full md:w-auto">
               <Input 
-                placeholder="بحث عن عميل..." 
+                placeholder={tCommon('search')}
                 className="max-w-sm" 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -136,7 +139,7 @@ export default function CustomersPage() {
                 onClick={handleSearch}
               >
                 <Search className="h-4 w-4 ml-2" />
-                <span>بحث</span>
+                <span>{tCommon('search')}</span>
               </Button>
             </div>
             <Button 
@@ -145,20 +148,20 @@ export default function CustomersPage() {
               onClick={handleFilter}
             >
               <Filter className="h-4 w-4" />
-              <span>تصفية</span>
+              <span>{tCommon('filter')}</span>
             </Button>
           </div>
           <div className="rounded-md border overflow-hidden">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>الاسم</TableHead>
-                  <TableHead>رقم الهاتف</TableHead>
-                  <TableHead>البريد الإلكتروني</TableHead>
-                  <TableHead>عدد الطلبات</TableHead>
-                  <TableHead>إجمالي المشتريات</TableHead>
-                  <TableHead>آخر طلب</TableHead>
-                  <TableHead className="text-left">الإجراءات</TableHead>
+                  <TableHead>{tCommon('name')}</TableHead>
+                  <TableHead>{t('phone')}</TableHead>
+                  <TableHead>{t('email')}</TableHead>
+                  <TableHead>{t('ordersCount')}</TableHead>
+                  <TableHead>{t('totalSpent')}</TableHead>
+                  <TableHead>{t('lastOrder')}</TableHead>
+                  <TableHead className="text-left">{tCommon('actions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -168,7 +171,7 @@ export default function CustomersPage() {
                     <TableCell>{customer.phone}</TableCell>
                     <TableCell>{customer.email}</TableCell>
                     <TableCell>{customer.orders}</TableCell>
-                    <TableCell>{customer.totalSpent} ريال</TableCell>
+                    <TableCell>{customer.totalSpent} {t('currencySymbol')}</TableCell>
                     <TableCell>{customer.lastOrder}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
@@ -207,7 +210,7 @@ export default function CustomersPage() {
               size="sm"
               onClick={() => console.log("Previous page")}
             >
-              السابق
+              {tCommon('previous')}
             </Button>
             <Button 
               variant="outline" 
@@ -236,7 +239,7 @@ export default function CustomersPage() {
               size="sm"
               onClick={() => console.log("Next page")}
             >
-              التالي
+              {tCommon('next')}
             </Button>
           </div>
         </CardContent>

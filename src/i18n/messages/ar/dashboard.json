@@ -1,0 +1,19 @@
+{
+  "title": "لوحة التحكم",
+  "welcome": "مرحباً بك في نظام إدارة المخزون",
+  "totalProducts": "إجمالي المنتجات",
+  "totalOrders": "إجمالي الطلبات",
+  "totalCustomers": "إجمالي العملاء",
+  "totalRevenue": "إجمالي الإيرادات",
+  "recentOrders": "أحدث الطلبات",
+  "lowStockProducts": "المنتجات منخفضة المخزون",
+  "viewAllOrders": "عرض جميع الطلبات",
+  "viewAllProducts": "عرض جميع المنتجات",
+  "revenueComparison": "+20% مقارنة بالشهر الماضي",
+  "newOrdersThisWeek": "+12 طلب جديد هذا الأسبوع",
+  "lowStockProductsCount": "15 منتج منخفض المخزون",
+  "newCustomersThisMonth": "+5 عملاء جدد هذا الشهر",
+  "orderNumberPrefix": "طلب",
+  "newOrder": "جديد",
+  "remaining": "متبقي"
+}

@@ -6,8 +6,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { ArrowLeft, Printer, Download, Package, Edit, Trash2, Clock, CreditCard, Truck, User, Phone, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
+import { useTranslations } from "next-intl";
 
 export default function OrderDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const t = useTranslations("orderDetails");
+  const tCommon = useTranslations("common");
+  
   // Unwrap params using React.use()
   const resolvedParams = use(params);
   const id = resolvedParams.id;
@@ -47,20 +51,20 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
               <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
-          <h1 className="text-3xl font-bold tracking-tight">تفاصيل الطلب #{order.orderNumber}</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t("title")} #{order.orderNumber}</h1>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" className="flex items-center gap-1">
             <Printer className="h-4 w-4" />
-            <span>طباعة</span>
+            <span>{t("print")}</span>
           </Button>
           <Button variant="outline" className="flex items-center gap-1">
             <Download className="h-4 w-4" />
-            <span>تصدير PDF</span>
+            <span>{t("exportPDF")}</span>
           </Button>
           <Button className="flex items-center gap-1">
             <Edit className="h-4 w-4" />
-            <span>تعديل</span>
+            <span>{tCommon("edit")}</span>
           </Button>
         </div>
       </div>
@@ -69,11 +73,11 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
         <div className="md:col-span-2 space-y-6">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-xl">المنتجات</CardTitle>
+              <CardTitle className="text-xl">{t("products")}</CardTitle>
               <Link href={`/orders/${order.id}/edit`}>
                 <Button size="sm" variant="outline" className="flex items-center gap-1">
                   <Edit className="h-4 w-4" />
-                  <span>تعديل المنتجات</span>
+                  <span>{t("editProducts")}</span>
                 </Button>
               </Link>
             </CardHeader>
@@ -82,12 +86,12 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="w-[80px]">الصورة</TableHead>
-                      <TableHead>المنتج</TableHead>
-                      <TableHead>السعر</TableHead>
-                      <TableHead>الكمية</TableHead>
-                      <TableHead>الخصم</TableHead>
-                      <TableHead>الإجمالي</TableHead>
+                      <TableHead className="w-[80px]">{t("image")}</TableHead>
+                      <TableHead>{t("product")}</TableHead>
+                      <TableHead>{t("price")}</TableHead>
+                      <TableHead>{t("quantity")}</TableHead>
+                      <TableHead>{t("discount")}</TableHead>
+                      <TableHead>{t("total")}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -99,10 +103,10 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
                           </div>
                         </TableCell>
                         <TableCell className="font-medium">{item.name}</TableCell>
-                        <TableCell>{item.price} ريال</TableCell>
+                        <TableCell>{item.price} {t("currency")}</TableCell>
                         <TableCell>{item.quantity}</TableCell>
                         <TableCell>{item.discount}%</TableCell>
-                        <TableCell className="font-medium">{item.total} ريال</TableCell>
+                        <TableCell className="font-medium">{item.total} {t("currency")}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -114,27 +118,27 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
           <div className="grid gap-6 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl">معلومات العميل</CardTitle>
+                <CardTitle className="text-xl">{t("customerInfo")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-2">
                   <User className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">الاسم:</span>
+                  <span className="font-medium">{t("name")}:</span>
                   <span>{order.customer.name}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">الهاتف:</span>
+                  <span className="font-medium">{t("phone")}:</span>
                   <span>{order.customer.phone}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">البريد الإلكتروني:</span>
+                  <span className="font-medium">{t("email")}:</span>
                   <span>{order.customer.email}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">العنوان:</span>
+                  <span className="font-medium">{t("address")}:</span>
                   <span>{order.customer.address}</span>
                 </div>
               </CardContent>
@@ -142,27 +146,27 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl">معلومات الشحن والدفع</CardTitle>
+                <CardTitle className="text-xl">{t("shippingAndPayment")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">تاريخ الطلب:</span>
+                  <span className="font-medium">{t("orderDate")}:</span>
                   <span>{order.date}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CreditCard className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">طريقة الدفع:</span>
+                  <span className="font-medium">{t("paymentMethod")}:</span>
                   <span>{order.paymentMethod}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Truck className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">طريقة الشحن:</span>
+                  <span className="font-medium">{t("shippingMethod")}:</span>
                   <span>{order.shippingMethod}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className={`h-2 w-2 rounded-full ${getStatusColor(order.status)}`}></div>
-                  <span className="font-medium">حالة الطلب:</span>
+                  <span className="font-medium">{t("orderStatus")}:</span>
                   <span>{order.status}</span>
                 </div>
               </CardContent>
@@ -173,39 +177,39 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">ملخص الطلب</CardTitle>
+              <CardTitle className="text-xl">{t("summary")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="border-b pb-4">
                 <div className="flex justify-between py-1">
-                  <span className="text-muted-foreground">المجموع الفرعي:</span>
-                  <span>{order.subtotal} ريال</span>
+                  <span className="text-muted-foreground">{t("subtotal")}:</span>
+                  <span>{order.subtotal} {t("currency")}</span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-muted-foreground">الضريبة (15%):</span>
-                  <span>{order.tax} ريال</span>
+                  <span className="text-muted-foreground">{t("tax")}:</span>
+                  <span>{order.tax} {t("currency")}</span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-muted-foreground">الشحن:</span>
-                  <span>{order.shipping} ريال</span>
+                  <span className="text-muted-foreground">{t("shipping")}:</span>
+                  <span>{order.shipping} {t("currency")}</span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-muted-foreground">الخصم:</span>
-                  <span>{order.discount} ريال</span>
+                  <span className="text-muted-foreground">{t("discount")}:</span>
+                  <span>{order.discount} {t("currency")}</span>
                 </div>
               </div>
               
               <div className="flex justify-between py-2 font-bold text-lg">
-                <span>الإجمالي:</span>
-                <span>{order.total} ريال</span>
+                <span>{t("total")}:</span>
+                <span>{order.total} {t("currency")}</span>
               </div>
               
               <div className="pt-4 space-y-2">
                 <Button className="w-full" variant="outline">
-                  إرسال إيصال للعميل
+                  {t("sendReceipt")}
                 </Button>
                 <Button className="w-full" variant="default">
-                  تغيير حالة الطلب
+                  {t("changeStatus")}
                 </Button>
               </div>
             </CardContent>
@@ -213,7 +217,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
           
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">سجل الطلب</CardTitle>
+              <CardTitle className="text-xl">{t("history")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-4">

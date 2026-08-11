@@ -9,8 +9,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, Plus, Trash2, Search } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function AddOrderPage() {
+  const t = useTranslations("addOrder");
   const [customer, setCustomer] = useState("");
   const [customerSearch, setCustomerSearch] = useState("");
   const [orderDate, setOrderDate] = useState("");
@@ -98,11 +100,11 @@ export default function AddOrderPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">إضافة طلب جديد</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
         <Link href="/orders">
           <Button variant="outline" className="flex items-center gap-1">
             <ArrowLeft className="h-4 w-4" />
-            <span>العودة للطلبات</span>
+            <span>{t("backToOrders")}</span>
           </Button>
         </Link>
       </div>
@@ -111,15 +113,15 @@ export default function AddOrderPage() {
         <div className="md:col-span-2 space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>معلومات العميل</CardTitle>
+              <CardTitle>{t("customerInfo.title")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-end gap-2">
                 <div className="flex-1 space-y-2">
-                  <Label htmlFor="customer-search">بحث عن عميل</Label>
+                  <Label htmlFor="customer-search">{t("customerInfo.searchLabel")}</Label>
                   <Input 
                     id="customer-search" 
-                    placeholder="اسم العميل أو رقم الهاتف" 
+                    placeholder={t("customerInfo.searchPlaceholder")}
                     value={customerSearch}
                     onChange={(e) => setCustomerSearch(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleCustomerSearch()}
@@ -130,14 +132,14 @@ export default function AddOrderPage() {
                   onClick={handleCustomerSearch}
                 >
                   <Search className="h-4 w-4 ml-2" />
-                  <span>بحث</span>
+                  <span>{t("customerInfo.searchButton")}</span>
                 </Button>
               </div>
               {customer && (
                 <div className="p-4 border rounded-md bg-muted/50">
                   <p className="font-medium">{customer}</p>
-                  <p className="text-sm text-muted-foreground">رقم الهاتف: 05XXXXXXXX</p>
-                  <p className="text-sm text-muted-foreground">البريد الإلكتروني: customer@example.com</p>
+                  <p className="text-sm text-muted-foreground">{t("customerInfo.phone")}: 05XXXXXXXX</p>
+                  <p className="text-sm text-muted-foreground">{t("customerInfo.email")}: customer@example.com</p>
                 </div>
               )}
             </CardContent>
@@ -145,7 +147,7 @@ export default function AddOrderPage() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>المنتجات</CardTitle>
+              <CardTitle>{t("products.title")}</CardTitle>
               <Button 
                 variant="outline" 
                 size="sm" 
@@ -153,13 +155,13 @@ export default function AddOrderPage() {
                 onClick={handleAddProduct}
               >
                 <Plus className="h-4 w-4" />
-                <span>إضافة منتج</span>
+                <span>{t("products.addButton")}</span>
               </Button>
             </CardHeader>
             <CardContent>
               {products.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
-                  لا توجد منتجات مضافة. اضغط على "إضافة منتج" لإضافة منتجات للطلب.
+                  {t("products.emptyMessage")}
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -167,7 +169,7 @@ export default function AddOrderPage() {
                     <div key={product.id} className="flex items-center gap-4 p-4 border rounded-md">
                       <div className="flex-1">
                         <p className="font-medium">{product.name}</p>
-                        <p className="text-sm text-muted-foreground">{product.price} ريال</p>
+                        <p className="text-sm text-muted-foreground">{product.price} {t("currency")}</p>
                       </div>
                       <div className="w-24">
                         <Input 
@@ -179,7 +181,7 @@ export default function AddOrderPage() {
                         />
                       </div>
                       <div className="w-24 text-right font-medium">
-                        {product.total} ريال
+                        {product.total} {t("currency")}
                       </div>
                       <Button 
                         variant="ghost" 
@@ -200,11 +202,11 @@ export default function AddOrderPage() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>تفاصيل الطلب</CardTitle>
+              <CardTitle>{t("orderDetails.title")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="order-date">تاريخ الطلب</Label>
+                <Label htmlFor="order-date">{t("orderDetails.dateLabel")}</Label>
                 <Input 
                   id="order-date" 
                   type="date" 
@@ -213,36 +215,36 @@ export default function AddOrderPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="payment-method">طريقة الدفع</Label>
+                <Label htmlFor="payment-method">{t("orderDetails.paymentLabel")}</Label>
                 <Select value={paymentMethod} onValueChange={setPaymentMethod}>
                   <SelectTrigger id="payment-method">
-                    <SelectValue placeholder="اختر طريقة الدفع" />
+                    <SelectValue placeholder={t("orderDetails.paymentPlaceholder")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="cash">نقدي</SelectItem>
-                    <SelectItem value="credit-card">بطاقة ائتمان</SelectItem>
-                    <SelectItem value="bank-transfer">تحويل بنكي</SelectItem>
+                    <SelectItem value="cash">{t("orderDetails.paymentCash")}</SelectItem>
+                    <SelectItem value="credit-card">{t("orderDetails.paymentCard")}</SelectItem>
+                    <SelectItem value="bank-transfer">{t("orderDetails.paymentTransfer")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="shipping-method">طريقة الشحن</Label>
+                <Label htmlFor="shipping-method">{t("orderDetails.shippingLabel")}</Label>
                 <Select value={shippingMethod} onValueChange={setShippingMethod}>
                   <SelectTrigger id="shipping-method">
-                    <SelectValue placeholder="اختر طريقة الشحن" />
+                    <SelectValue placeholder={t("orderDetails.shippingPlaceholder")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="standard">شحن قياسي</SelectItem>
-                    <SelectItem value="express">شحن سريع</SelectItem>
-                    <SelectItem value="pickup">استلام من المتجر</SelectItem>
+                    <SelectItem value="standard">{t("orderDetails.shippingStandard")}</SelectItem>
+                    <SelectItem value="express">{t("orderDetails.shippingExpress")}</SelectItem>
+                    <SelectItem value="pickup">{t("orderDetails.shippingPickup")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="notes">ملاحظات</Label>
+                <Label htmlFor="notes">{t("orderDetails.notesLabel")}</Label>
                 <Textarea 
                   id="notes" 
-                  placeholder="أي ملاحظات إضافية حول الطلب" 
+                  placeholder={t("orderDetails.notesPlaceholder")}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                 />
@@ -252,28 +254,28 @@ export default function AddOrderPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>ملخص الطلب</CardTitle>
+              <CardTitle>{t("summary.title")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex justify-between">
-                <span className="text-muted-foreground">المجموع الفرعي</span>
-                <span>{subtotal.toFixed(2)} ريال</span>
+                <span className="text-muted-foreground">{t("summary.subtotal")}</span>
+                <span>{subtotal.toFixed(2)} {t("currency")}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">الضريبة (15%)</span>
-                <span>{tax.toFixed(2)} ريال</span>
+                <span className="text-muted-foreground">{t("summary.tax")}</span>
+                <span>{tax.toFixed(2)} {t("currency")}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">الشحن</span>
-                <span>{shipping.toFixed(2)} ريال</span>
+                <span className="text-muted-foreground">{t("summary.shipping")}</span>
+                <span>{shipping.toFixed(2)} {t("currency")}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">الخصم</span>
-                <span>{discount.toFixed(2)} ريال</span>
+                <span className="text-muted-foreground">{t("summary.discount")}</span>
+                <span>{discount.toFixed(2)} {t("currency")}</span>
               </div>
               <div className="border-t pt-4 flex justify-between font-bold">
-                <span>الإجمالي</span>
-                <span>{total.toFixed(2)} ريال</span>
+                <span>{t("summary.total")}</span>
+                <span>{total.toFixed(2)} {t("currency")}</span>
               </div>
               <Button 
                 className="w-full mt-4" 
@@ -281,7 +283,7 @@ export default function AddOrderPage() {
                 disabled={!customer || products.length === 0}
                 onClick={handleSaveOrder}
               >
-                تأكيد الطلب
+                {t("summary.confirmButton")}
               </Button>
             </CardContent>
           </Card>

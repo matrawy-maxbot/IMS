@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogContent,
@@ -27,6 +28,8 @@ export function LogoDialog({
   onSave,
   currentLogo,
 }: LogoDialogProps) {
+  const t = useTranslations("dialogs.logo");
+  const tCommon = useTranslations("common");
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(currentLogo || null);
 
@@ -57,9 +60,9 @@ export function LogoDialog({
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleCancel()}>
       <DialogContent className="font-tajawal sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>تعديل شعار الشركة</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
           <DialogDescription>
-            قم بتحميل شعار الشركة الجديد. يفضل استخدام صورة بخلفية شفافة بصيغة PNG أو SVG.
+            {t("description")}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
@@ -68,7 +71,7 @@ export function LogoDialog({
               {previewUrl ? (
                 <img 
                   src={previewUrl} 
-                  alt="شعار الشركة" 
+                  alt={t("selectImage")} 
                   className="h-full w-full object-contain" 
                 />
               ) : (
@@ -76,7 +79,7 @@ export function LogoDialog({
               )}
             </div>
             <div className="grid w-full items-center gap-1.5">
-              <Label htmlFor="logo" className="text-center">اختر صورة الشعار</Label>
+              <Label htmlFor="logo" className="text-center">{t("selectImage")}</Label>
               <div className="flex items-center gap-2">
                 <Input 
                   id="logo" 
@@ -91,15 +94,15 @@ export function LogoDialog({
                   className="w-full"
                 >
                   <Upload className="h-4 w-4 ml-2" />
-                  تحميل صورة
+                  {t("uploadButton")}
                 </Button>
               </div>
             </div>
           </div>
         </div>
         <DialogFooter className="sm:justify-between">
-          <Button variant="outline" onClick={handleCancel}>إلغاء</Button>
-          <Button onClick={handleSave}>حفظ التغييرات</Button>
+          <Button variant="outline" onClick={handleCancel}>{t("cancel")}</Button>
+          <Button onClick={handleSave}>{t("save")}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

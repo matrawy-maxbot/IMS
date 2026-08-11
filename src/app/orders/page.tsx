@@ -7,8 +7,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Plus, Search, Filter, Download, Eye, FileEdit, Trash2, Calendar, ShoppingCart, TrendingUp, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useTranslations } from 'next-intl';
 
 export default function OrdersPage() {
+  const t = useTranslations('orders');
+  const tCommon = useTranslations('common');
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [dateFilter, setDateFilter] = useState("");
 
@@ -66,55 +70,55 @@ export default function OrdersPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">الطلبات</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">إجمالي الطلبات</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('totalOrders')}</CardTitle>
             <ShoppingCart className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">45</div>
             <p className="text-xs text-muted-foreground">
-              +12 طلب جديد هذا الأسبوع
+              +12 {t('processingOrders')} {tCommon('date')}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">إجمالي المبيعات</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('totalSales')}</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">12,500 ريال</div>
+            <div className="text-2xl font-bold">12,500 {tCommon('total')}</div>
             <p className="text-xs text-muted-foreground">
-              +20% مقارنة بالشهر الماضي
+              +20% {tCommon('total')}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">طلبات قيد التجهيز</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('processingOrders')}</CardTitle>
             <ShoppingCart className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">8</div>
             <p className="text-xs text-muted-foreground">
-              -2 طلب عن الأسبوع الماضي
+              -2 {t('newOrder')}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">طلبات ملغاة</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('cancelledOrders')}</CardTitle>
             <AlertCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">3</div>
             <p className="text-xs text-muted-foreground">
-              +1 طلب عن الأسبوع الماضي
+              +1 {t('newOrder')}
             </p>
           </CardContent>
         </Card>
@@ -122,7 +126,7 @@ export default function OrdersPage() {
 
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-2xl">قائمة الطلبات</CardTitle>
+          <CardTitle className="text-2xl">{t('list')}</CardTitle>
           <div className="flex gap-2">
             <Button 
               variant="outline" 
@@ -130,12 +134,12 @@ export default function OrdersPage() {
               onClick={handleExport}
             >
               <Download className="h-4 w-4" />
-              <span>تصدير</span>
+              <span>{tCommon('export')}</span>
             </Button>
             <Link href="/add-order">
               <Button className="flex items-center gap-1">
                 <Plus className="h-4 w-4" />
-                <span>طلب جديد</span>
+                <span>{t('newOrder')}</span>
               </Button>
             </Link>
           </div>
@@ -144,7 +148,7 @@ export default function OrdersPage() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
             <div className="flex items-center gap-2 w-full md:w-auto">
               <Input 
-                placeholder="بحث عن طلب..." 
+                placeholder={tCommon('search')}
                 className="max-w-sm" 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -155,7 +159,7 @@ export default function OrdersPage() {
                 onClick={handleSearch}
               >
                 <Search className="h-4 w-4 ml-2" />
-                <span>بحث</span>
+                <span>{tCommon('search')}</span>
               </Button>
             </div>
             <div className="flex items-center gap-2 w-full md:w-auto">
@@ -171,7 +175,7 @@ export default function OrdersPage() {
                   onClick={handleDateFilter}
                 >
                   <Calendar className="h-4 w-4 ml-2" />
-                  <span>تصفية بالتاريخ</span>
+                  <span>{tCommon('filter')}</span>
                 </Button>
               </div>
               <Button 
@@ -180,7 +184,7 @@ export default function OrdersPage() {
                 onClick={handleFilter}
               >
                 <Filter className="h-4 w-4" />
-                <span>تصفية</span>
+                <span>{tCommon('filter')}</span>
               </Button>
             </div>
           </div>
@@ -188,13 +192,13 @@ export default function OrdersPage() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>رقم الطلب</TableHead>
-                  <TableHead>العميل</TableHead>
-                  <TableHead>التاريخ</TableHead>
-                  <TableHead>المجموع</TableHead>
-                  <TableHead>الحالة</TableHead>
-                  <TableHead>عدد المنتجات</TableHead>
-                  <TableHead className="text-left">الإجراءات</TableHead>
+                  <TableHead>{t('orderNumber')}</TableHead>
+                  <TableHead>{t('customer')}</TableHead>
+                  <TableHead>{tCommon('date')}</TableHead>
+                  <TableHead>{tCommon('total')}</TableHead>
+                  <TableHead>{tCommon('status')}</TableHead>
+                  <TableHead>{t('items')}</TableHead>
+                  <TableHead className="text-left">{tCommon('actions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -203,7 +207,7 @@ export default function OrdersPage() {
                     <TableCell className="font-medium">{order.orderNumber}</TableCell>
                     <TableCell>{order.customer}</TableCell>
                     <TableCell>{order.date}</TableCell>
-                    <TableCell>{order.total} ريال</TableCell>
+                    <TableCell>{order.total} {tCommon('total')}</TableCell>
                     <TableCell>
                       <span className={`px-2 py-1 rounded-full text-xs ${
                         order.status === "مكتمل" ? "bg-green-100 text-green-800" : 
@@ -252,7 +256,7 @@ export default function OrdersPage() {
               size="sm"
               onClick={() => console.log("Previous page")}
             >
-              السابق
+              {tCommon('previous')}
             </Button>
             <Button 
               variant="outline" 
@@ -281,7 +285,7 @@ export default function OrdersPage() {
               size="sm"
               onClick={() => console.log("Next page")}
             >
-              التالي
+              {tCommon('next')}
             </Button>
           </div>
         </CardContent>

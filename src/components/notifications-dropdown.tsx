@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -61,6 +62,7 @@ const dummyNotifications: Notification[] = [
 ];
 
 export function NotificationsDropdown() {
+  const t = useTranslations("dialogs.notifications");
   const [notifications, setNotifications] = 
     useState<Notification[]>(dummyNotifications);
   
@@ -98,7 +100,7 @@ export function NotificationsDropdown() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-80">
         <div className="flex items-center justify-between p-2">
-          <DropdownMenuLabel className="text-lg font-bold">الإشعارات</DropdownMenuLabel>
+          <DropdownMenuLabel className="text-lg font-bold">{t("title")}</DropdownMenuLabel>
           {unreadCount > 0 && (
             <Button 
               variant="ghost" 
@@ -106,7 +108,7 @@ export function NotificationsDropdown() {
               onClick={markAllAsRead}
               className="text-xs text-primary hover:text-primary"
             >
-              تعليم الكل كمقروء
+              {t("markAllAsRead")}
             </Button>
           )}
         </div>
@@ -128,13 +130,13 @@ export function NotificationsDropdown() {
             ))
           ) : (
             <div className="p-4 text-center text-muted-foreground">
-              لا توجد إشعارات
+              {t("noNotifications")}
             </div>
           )}
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="justify-center p-2 text-center text-primary">
-          عرض كل الإشعارات
+          {t("viewAll")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

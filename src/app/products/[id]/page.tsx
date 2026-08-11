@@ -6,8 +6,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { ArrowLeft, Edit, Trash2, Package, BarChart, ShoppingCart, AlertTriangle, Tag, Truck, Clock } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
+import { useTranslations } from "next-intl";
 
 export default function ProductDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const t = useTranslations("productDetails");
+  const tCommon = useTranslations("common");
+  
   // Unwrap params using React.use()
   const resolvedParams = use(params);
   const id = resolvedParams.id;
@@ -53,18 +57,18 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
               <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
-          <h1 className="text-3xl font-bold tracking-tight">تفاصيل المنتج</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
         </div>
         <div className="flex items-center gap-2">
           <Link href={`/products/${product.id}/edit`}>
             <Button className="flex items-center gap-1">
               <Edit className="h-4 w-4" />
-              <span>تعديل</span>
+              <span>{t("edit")}</span>
             </Button>
           </Link>
           <Button variant="destructive" className="flex items-center gap-1">
             <Trash2 className="h-4 w-4" />
-            <span>حذف</span>
+            <span>{tCommon("delete")}</span>
           </Button>
         </div>
       </div>
@@ -90,26 +94,26 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
                   
                   <div className="space-y-1">
                     <div className="flex justify-between">
-                      <span className="font-medium">السعر:</span>
-                      <span className="font-bold">{product.price} ريال</span>
+                      <span className="font-medium">{t("productPrice")}:</span>
+                      <span className="font-bold">{product.price} {t("currency")}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="font-medium">التكلفة:</span>
-                      <span>{product.cost} ريال</span>
+                      <span className="font-medium">{t("productCost")}:</span>
+                      <span>{product.cost} {t("currency")}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="font-medium">الربح:</span>
-                      <span className="text-green-600">{product.price - product.cost} ريال</span>
+                      <span className="font-medium">{t("profit")}:</span>
+                      <span className="text-green-600">{product.price - product.cost} {t("currency")}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="font-medium">نسبة الربح:</span>
+                      <span className="font-medium">{t("profitMargin")}:</span>
                       <span className="text-green-600">{Math.round(((product.price - product.cost) / product.cost) * 100)}%</span>
                     </div>
                   </div>
                   
                   <div className="pt-2">
                     <div className="flex justify-between items-center">
-                      <span className="font-medium">الكمية المتوفرة:</span>
+                      <span className="font-medium">{t("availableQuantity")}:</span>
                       <span className="font-bold">{product.quantity}</span>
                     </div>
                     <div className="w-full bg-muted h-2 rounded-full mt-2">
@@ -121,7 +125,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
                     {product.quantity <= product.minQuantity && (
                       <div className="flex items-center gap-1 text-red-500 text-sm mt-1">
                         <AlertTriangle className="h-3 w-3" />
-                        <span>المخزون منخفض</span>
+                        <span>{t("lowStock")}</span>
                       </div>
                     )}
                   </div>
@@ -139,7 +143,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
               </div>
               
               <div className="mt-6 pt-6 border-t">
-                <h3 className="font-medium mb-2">وصف المنتج</h3>
+                <h3 className="font-medium mb-2">{t("productDescription")}</h3>
                 <p className="text-muted-foreground">{product.description}</p>
               </div>
             </CardContent>
@@ -148,7 +152,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
           <div className="grid gap-6 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl">مبيعات المنتج</CardTitle>
+                <CardTitle className="text-xl">{t("salesHistory")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-[200px] flex items-end gap-2">
@@ -168,28 +172,28 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl">معلومات إضافية</CardTitle>
+                <CardTitle className="text-xl">{t("additionalInfo")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">تاريخ الإضافة:</span>
+                  <span className="font-medium">{t("createdDate")}:</span>
                   <span>{product.createdAt}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">آخر تحديث:</span>
+                  <span className="font-medium">{t("lastUpdate")}:</span>
                   <span>{product.updatedAt}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Truck className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">الحد الأدنى للمخزون:</span>
+                  <span className="font-medium">{t("minimumStock")}:</span>
                   <span>{product.minQuantity}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <BarChart className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">إجمالي المبيعات:</span>
-                  <span>{product.salesHistory.reduce((sum, item) => sum + item.sales, 0)} وحدة</span>
+                  <span className="font-medium">{t("totalSales")}:</span>
+                  <span>{product.salesHistory.reduce((sum, item) => sum + item.sales, 0)} {t("units")}</span>
                 </div>
               </CardContent>
             </Card>
@@ -199,27 +203,27 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">إجراءات سريعة</CardTitle>
+              <CardTitle className="text-xl">{t("quickActions")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               <Button className="w-full flex items-center gap-1" variant="outline">
                 <ShoppingCart className="h-4 w-4" />
-                <span>إضافة للطلب</span>
+                <span>{t("addToOrder")}</span>
               </Button>
               <Button className="w-full flex items-center gap-1" variant="outline">
                 <Truck className="h-4 w-4" />
-                <span>طلب مخزون إضافي</span>
+                <span>{t("orderStock")}</span>
               </Button>
               <Button className="w-full flex items-center gap-1" variant="outline">
                 <BarChart className="h-4 w-4" />
-                <span>عرض تقرير المبيعات</span>
+                <span>{t("viewSalesReport")}</span>
               </Button>
             </CardContent>
           </Card>
           
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">منتجات ذات صلة</CardTitle>
+              <CardTitle className="text-xl">{t("relatedProducts")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -230,7 +234,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
                     </div>
                     <div className="flex-1">
                       <div className="font-medium">{item.name}</div>
-                      <div className="text-sm text-muted-foreground">{item.price} ريال</div>
+                      <div className="text-sm text-muted-foreground">{item.price} {t("currency")}</div>
                     </div>
                     <Link href={`/products/${item.id}`}>
                       <Button variant="ghost" size="icon">
@@ -245,7 +249,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
           
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">آخر الطلبات</CardTitle>
+              <CardTitle className="text-xl">{t("recentOrders")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -259,9 +263,9 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
                       <ShoppingCart className="h-5 w-5 text-muted-foreground" />
                     </div>
                     <div className="flex-1">
-                      <div className="font-medium">طلب #{order.id}</div>
+                      <div className="font-medium">{t("orderId")} {order.id}</div>
                       <div className="text-sm text-muted-foreground">
-                        {order.date} • {order.customer} • {order.quantity} وحدة
+                        {order.date} • {order.customer} • {order.quantity} {t("units")}
                       </div>
                     </div>
                     <Link href={`/orders/${order.id}`}>

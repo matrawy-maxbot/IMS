@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogContent,
@@ -41,53 +42,58 @@ export function PermissionsDialog({
   roleName,
   initialPermissions = {},
 }: PermissionsDialogProps) {
+  const t = useTranslations("dialogs.permissions");
+  const tCommon = useTranslations("common");
+  const tPerms = useTranslations("dialogs.permissions.permissions");
+  const tGroups = useTranslations("dialogs.permissions.permissionsGroups");
+
   // مجموعات الصلاحيات المتاحة في النظام
   const [permissionGroups, setPermissionGroups] = useState<PermissionGroup[]>([
     {
-      name: "المنتجات",
+      name: tGroups("products"),
       permissions: [
-        { id: "products.view", name: "عرض المنتجات", description: "عرض قائمة المنتجات وتفاصيلها", checked: false },
-        { id: "products.create", name: "إضافة منتج", description: "إضافة منتجات جديدة", checked: false },
-        { id: "products.edit", name: "تعديل منتج", description: "تعديل بيانات المنتجات", checked: false },
-        { id: "products.delete", name: "حذف منتج", description: "حذف المنتجات من النظام", checked: false },
+        { id: "products.view", name: tPerms("productsView"), description: tPerms("productsViewDesc"), checked: false },
+        { id: "products.create", name: tPerms("productsCreate"), description: tPerms("productsCreateDesc"), checked: false },
+        { id: "products.edit", name: tPerms("productsEdit"), description: tPerms("productsEditDesc"), checked: false },
+        { id: "products.delete", name: tPerms("productsDelete"), description: tPerms("productsDeleteDesc"), checked: false },
       ],
     },
     {
-      name: "الطلبات",
+      name: tGroups("orders"),
       permissions: [
-        { id: "orders.view", name: "عرض الطلبات", description: "عرض قائمة الطلبات وتفاصيلها", checked: false },
-        { id: "orders.create", name: "إنشاء طلب", description: "إنشاء طلبات جديدة", checked: false },
-        { id: "orders.edit", name: "تعديل طلب", description: "تعديل بيانات الطلبات", checked: false },
-        { id: "orders.delete", name: "حذف طلب", description: "حذف الطلبات من النظام", checked: false },
-        { id: "orders.approve", name: "اعتماد طلب", description: "اعتماد الطلبات وتغيير حالتها", checked: false },
+        { id: "orders.view", name: tPerms("ordersView"), description: tPerms("ordersViewDesc"), checked: false },
+        { id: "orders.create", name: tPerms("ordersCreate"), description: tPerms("ordersCreateDesc"), checked: false },
+        { id: "orders.edit", name: tPerms("ordersEdit"), description: tPerms("ordersEditDesc"), checked: false },
+        { id: "orders.delete", name: tPerms("ordersDelete"), description: tPerms("ordersDeleteDesc"), checked: false },
+        { id: "orders.approve", name: tPerms("ordersApprove"), description: tPerms("ordersApproveDesc"), checked: false },
       ],
     },
     {
-      name: "العملاء",
+      name: tGroups("customers"),
       permissions: [
-        { id: "customers.view", name: "عرض العملاء", description: "عرض قائمة العملاء وتفاصيلهم", checked: false },
-        { id: "customers.create", name: "إضافة عميل", description: "إضافة عملاء جدد", checked: false },
-        { id: "customers.edit", name: "تعديل عميل", description: "تعديل بيانات العملاء", checked: false },
-        { id: "customers.delete", name: "حذف عميل", description: "حذف العملاء من النظام", checked: false },
+        { id: "customers.view", name: tPerms("customersView"), description: tPerms("customersViewDesc"), checked: false },
+        { id: "customers.create", name: tPerms("customersCreate"), description: tPerms("customersCreateDesc"), checked: false },
+        { id: "customers.edit", name: tPerms("customersEdit"), description: tPerms("customersEditDesc"), checked: false },
+        { id: "customers.delete", name: tPerms("customersDelete"), description: tPerms("customersDeleteDesc"), checked: false },
       ],
     },
     {
-      name: "التقارير",
+      name: tGroups("reports"),
       permissions: [
-        { id: "reports.sales", name: "تقارير المبيعات", description: "عرض وطباعة تقارير المبيعات", checked: false },
-        { id: "reports.inventory", name: "تقارير المخزون", description: "عرض وطباعة تقارير المخزون", checked: false },
-        { id: "reports.customers", name: "تقارير العملاء", description: "عرض وطباعة تقارير العملاء", checked: false },
-        { id: "reports.financial", name: "التقارير المالية", description: "عرض وطباعة التقارير المالية", checked: false },
+        { id: "reports.sales", name: tPerms("reportsSales"), description: tPerms("reportsSalesDesc"), checked: false },
+        { id: "reports.inventory", name: tPerms("reportsInventory"), description: tPerms("reportsInventoryDesc"), checked: false },
+        { id: "reports.customers", name: tPerms("reportsCustomers"), description: tPerms("reportsCustomersDesc"), checked: false },
+        { id: "reports.financial", name: tPerms("reportsFinancial"), description: tPerms("reportsFinancialDesc"), checked: false },
       ],
     },
     {
-      name: "الإعدادات",
+      name: tGroups("settings"),
       permissions: [
-        { id: "settings.view", name: "عرض الإعدادات", description: "عرض إعدادات النظام", checked: false },
-        { id: "settings.edit", name: "تعديل الإعدادات", description: "تعديل إعدادات النظام", checked: false },
-        { id: "users.manage", name: "إدارة المستخدمين", description: "إضافة وتعديل وحذف المستخدمين", checked: false },
-        { id: "roles.manage", name: "إدارة الأدوار", description: "إضافة وتعديل وحذف الأدوار والصلاحيات", checked: false },
-        { id: "backup.manage", name: "إدارة النسخ الاحتياطية", description: "إنشاء واستعادة النسخ الاحتياطية", checked: false },
+        { id: "settings.view", name: tPerms("settingsView"), description: tPerms("settingsViewDesc"), checked: false },
+        { id: "settings.edit", name: tPerms("settingsEdit"), description: tPerms("settingsEditDesc"), checked: false },
+        { id: "users.manage", name: tPerms("usersManage"), description: tPerms("usersManageDesc"), checked: false },
+        { id: "roles.manage", name: tPerms("rolesManage"), description: tPerms("rolesManageDesc"), checked: false },
+        { id: "backup.manage", name: tPerms("backupManage"), description: tPerms("backupManageDesc"), checked: false },
       ],
     },
   ]);
@@ -167,9 +173,9 @@ export function PermissionsDialog({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="font-tajawal sm:max-w-3xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-right">إدارة صلاحيات {roleName}</DialogTitle>
+          <DialogTitle className="text-right">{t("title")} {roleName}</DialogTitle>
           <DialogDescription className="text-right">
-            حدد الصلاحيات المسموح بها لهذا الدور في النظام.
+            {t("description")}
           </DialogDescription>
         </DialogHeader>
 
@@ -223,9 +229,9 @@ export function PermissionsDialog({
 
         <DialogFooter className="sm:justify-between">
           <Button variant="outline" onClick={onClose}>
-            إلغاء
+            {t("cancel")}
           </Button>
-          <Button onClick={handleSave}>حفظ الصلاحيات</Button>
+          <Button onClick={handleSave}>{t("save")}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

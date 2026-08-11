@@ -5,12 +5,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Search, HelpCircle, FileText, MessageCircle, Phone, Mail, Video, BookOpen, ArrowRight, Package, ShoppingCart, Users, BarChart, Settings } from "lucide-react";
+import { useTranslations } from 'next-intl';
 
 export default function HelpPage() {
+  const t = useTranslations('help');
+  const tCommon = useTranslations('common');
+  const tNav = useTranslations('nav');
+  
   return (
     <div className="flex flex-col gap-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">المساعدة والدعم</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
       </div>
 
       <div className="flex items-center gap-4 bg-muted/50 p-4 rounded-lg">
@@ -18,11 +23,11 @@ export default function HelpPage() {
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="ابحث في مركز المساعدة..."
+            placeholder={t('searchHelp')}
             className="pl-8"
           />
         </div>
-        <Button>بحث</Button>
+        <Button>{t('search')}</Button>
       </div>
 
       <Tabs defaultValue="faq" className="space-y-4">
@@ -30,25 +35,25 @@ export default function HelpPage() {
           <TabsTrigger value="faq" className="py-2">
             <div className="flex items-center gap-2">
               <HelpCircle className="h-4 w-4" />
-              <span>الأسئلة الشائعة</span>
+              <span>{t('faq')}</span>
             </div>
           </TabsTrigger>
           <TabsTrigger value="guides" className="py-2">
             <div className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
-              <span>أدلة الاستخدام</span>
+              <span>{t('guides')}</span>
             </div>
           </TabsTrigger>
           <TabsTrigger value="videos" className="py-2">
             <div className="flex items-center gap-2">
               <Video className="h-4 w-4" />
-              <span>فيديوهات تعليمية</span>
+              <span>{t('videos')}</span>
             </div>
           </TabsTrigger>
           <TabsTrigger value="contact" className="py-2">
             <div className="flex items-center gap-2">
               <MessageCircle className="h-4 w-4" />
-              <span>اتصل بنا</span>
+              <span>{t('contact')}</span>
             </div>
           </TabsTrigger>
         </TabsList>
@@ -58,14 +63,14 @@ export default function HelpPage() {
           <div className="grid gap-6 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle>الأسئلة الشائعة حول المنتجات</CardTitle>
-                <CardDescription>الأسئلة المتكررة حول إدارة المنتجات</CardDescription>
+                <CardTitle>{t('faqProducts')}</CardTitle>
+                <CardDescription>{t('faqProductsDesc')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {[
-                  { question: "كيف يمكنني إضافة منتج جديد؟", answer: "يمكنك إضافة منتج جديد من خلال الانتقال إلى صفحة المنتجات والنقر على زر 'إضافة منتج'. قم بتعبئة المعلومات المطلوبة مثل اسم المنتج، الكود، السعر، الكمية، وحفظ المنتج." },
-                  { question: "كيف يمكنني تعديل معلومات منتج؟", answer: "انتقل إلى صفحة المنتجات، ابحث عن المنتج المطلوب، ثم انقر على زر 'تعديل' المقابل للمنتج. قم بتعديل المعلومات المطلوبة ثم احفظ التغييرات." },
-                  { question: "كيف يمكنني تتبع مخزون المنتجات؟", answer: "يمكنك تتبع مخزون المنتجات من خلال صفحة المنتجات حيث تظهر كمية كل منتج. كما يمكنك الاطلاع على تقارير المخزون من صفحة التقارير لمعرفة المنتجات منخفضة المخزون والمنتجات الأكثر مبيعاً." },
+                  { question: t('faqProduct1'), answer: t('faqProduct1Answer') },
+                  { question: t('faqProduct2'), answer: t('faqProduct2Answer') },
+                  { question: t('faqProduct3'), answer: t('faqProduct3Answer') },
                 ].map((item, index) => (
                   <div key={index} className="space-y-2">
                     <div className="font-medium">{item.question}</div>
@@ -77,14 +82,14 @@ export default function HelpPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>الأسئلة الشائعة حول الطلبات</CardTitle>
-                <CardDescription>الأسئلة المتكررة حول إدارة الطلبات</CardDescription>
+                <CardTitle>{t('faqOrders')}</CardTitle>
+                <CardDescription>{t('faqOrdersDesc')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {[
-                  { question: "كيف يمكنني إنشاء طلب جديد؟", answer: "يمكنك إنشاء طلب جديد من خلال النقر على 'إضافة طلب' من القائمة الجانبية. قم باختيار العميل، وإضافة المنتجات المطلوبة، وتحديد الكميات، ثم إكمال معلومات الطلب والدفع." },
-                  { question: "كيف يمكنني تتبع حالة الطلبات؟", answer: "يمكنك تتبع حالة الطلبات من خلال صفحة الطلبات، حيث تظهر جميع الطلبات مع حالتها الحالية. يمكنك النقر على أي طلب لعرض تفاصيله الكاملة وتحديث حالته." },
-                  { question: "كيف يمكنني إلغاء طلب؟", answer: "لإلغاء طلب، انتقل إلى صفحة الطلبات، ابحث عن الطلب المطلوب، ثم انقر على زر 'عرض'. من صفحة تفاصيل الطلب، يمكنك النقر على زر 'إلغاء الطلب' وتأكيد الإلغاء." },
+                  { question: t('faqOrder1'), answer: t('faqOrder1Answer') },
+                  { question: t('faqOrder2'), answer: t('faqOrder2Answer') },
+                  { question: t('faqOrder3'), answer: t('faqOrder3Answer') },
                 ].map((item, index) => (
                   <div key={index} className="space-y-2">
                     <div className="font-medium">{item.question}</div>
@@ -96,14 +101,14 @@ export default function HelpPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>الأسئلة الشائعة حول العملاء</CardTitle>
-                <CardDescription>الأسئلة المتكررة حول إدارة العملاء</CardDescription>
+                <CardTitle>{t('faqCustomers')}</CardTitle>
+                <CardDescription>{t('faqCustomersDesc')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {[
-                  { question: "كيف يمكنني إضافة عميل جديد؟", answer: "يمكنك إضافة عميل جديد من خلال الانتقال إلى صفحة العملاء والنقر على زر 'إضافة عميل'. قم بتعبئة المعلومات المطلوبة مثل الاسم، رقم الهاتف، البريد الإلكتروني، والعنوان، ثم احفظ بيانات العميل." },
-                  { question: "كيف يمكنني عرض سجل مشتريات العميل؟", answer: "انتقل إلى صفحة العملاء، ابحث عن العميل المطلوب، ثم انقر على زر 'عرض'. في صفحة تفاصيل العميل، ستجد قسماً خاصاً بسجل المشتريات يعرض جميع الطلبات السابقة للعميل." },
-                  { question: "كيف يمكنني تعديل حد الائتمان للعميل؟", answer: "انتقل إلى صفحة تفاصيل العميل، ثم انقر على زر 'تعديل حد الائتمان'. أدخل الحد الائتماني الجديد واحفظ التغييرات. يمكنك أيضاً تعديل هذه المعلومات من خلال تعديل بيانات العميل." },
+                  { question: t('faqCustomer1'), answer: t('faqCustomer1Answer') },
+                  { question: t('faqCustomer2'), answer: t('faqCustomer2Answer') },
+                  { question: t('faqCustomer3'), answer: t('faqCustomer3Answer') },
                 ].map((item, index) => (
                   <div key={index} className="space-y-2">
                     <div className="font-medium">{item.question}</div>
@@ -115,14 +120,14 @@ export default function HelpPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>الأسئلة الشائعة حول التقارير</CardTitle>
-                <CardDescription>الأسئلة المتكررة حول التقارير والإحصائيات</CardDescription>
+                <CardTitle>{t('faqReports')}</CardTitle>
+                <CardDescription>{t('faqReportsDesc')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {[
-                  { question: "كيف يمكنني عرض تقارير المبيعات؟", answer: "يمكنك عرض تقارير المبيعات من خلال الانتقال إلى صفحة التقارير واختيار تبويب 'المبيعات'. ستجد تحليلاً للمبيعات الشهرية، وأفضل المنتجات مبيعاً، والمبيعات حسب الفئة." },
-                  { question: "كيف يمكنني تصدير التقارير؟", answer: "في صفحة التقارير، اختر التقرير الذي ترغب في تصديره، ثم انقر على زر 'تصدير' في أعلى الصفحة. يمكنك اختيار تنسيق التصدير (Excel، PDF، CSV) ثم تأكيد التصدير." },
-                  { question: "هل يمكنني تخصيص نطاق التقارير الزمني؟", answer: "نعم، يمكنك تخصيص النطاق الزمني للتقارير من خلال النقر على زر 'تحديد الفترة' في أعلى صفحة التقارير. حدد تاريخ البداية والنهاية للفترة المطلوبة، ثم انقر على 'تطبيق'." },
+                  { question: t('faqReport1'), answer: t('faqReport1Answer') },
+                  { question: t('faqReport2'), answer: t('faqReport2Answer') },
+                  { question: t('faqReport3'), answer: t('faqReport3Answer') },
                 ].map((item, index) => (
                   <div key={index} className="space-y-2">
                     <div className="font-medium">{item.question}</div>
@@ -138,12 +143,12 @@ export default function HelpPage() {
         <TabsContent value="guides" className="space-y-6">
           <div className="grid gap-6 md:grid-cols-3">
             {[
-              { title: "دليل البدء السريع", description: "تعرف على أساسيات استخدام نظام إدارة المخزون", icon: BookOpen },
-              { title: "إدارة المنتجات", description: "دليل شامل لإضافة وتعديل وإدارة المنتجات", icon: Package },
-              { title: "إدارة الطلبات", description: "كيفية إنشاء ومتابعة وإدارة الطلبات", icon: ShoppingCart },
-              { title: "إدارة العملاء", description: "دليل إدارة بيانات العملاء وسجلات المشتريات", icon: Users },
-              { title: "التقارير والإحصائيات", description: "كيفية استخدام وتحليل التقارير المختلفة", icon: BarChart },
-              { title: "إعدادات النظام", description: "تخصيص إعدادات النظام حسب احتياجاتك", icon: Settings }
+              { title: t('quickStartGuide'), description: t('quickStartGuideDesc'), icon: BookOpen },
+              { title: t('productManagement'), description: t('productManagementDesc'), icon: Package },
+              { title: t('orderManagement'), description: t('orderManagementDesc'), icon: ShoppingCart },
+              { title: t('customerManagement'), description: t('customerManagementDesc'), icon: Users },
+              { title: t('reportsAndAnalytics'), description: t('reportsAndAnalyticsDesc'), icon: BarChart },
+              { title: t('systemSettings'), description: t('systemSettingsDesc'), icon: Settings }
             ].map((guide, index) => (
               <Card key={index} className="overflow-hidden">
                 <CardHeader className="pb-0">
@@ -155,7 +160,7 @@ export default function HelpPage() {
                 </CardHeader>
                 <CardContent className="pt-6">
                   <Button variant="outline" className="w-full justify-between">
-                    <span>قراءة الدليل</span>
+                    <span>{t('readGuide')}</span>
                     <ArrowRight className="h-4 w-4" />
                   </Button>
                 </CardContent>
@@ -165,16 +170,16 @@ export default function HelpPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>أدلة متقدمة</CardTitle>
-              <CardDescription>أدلة متخصصة لمستخدمي النظام المتقدمين</CardDescription>
+              <CardTitle>{t('advancedGuides')}</CardTitle>
+              <CardDescription>{t('advancedGuidesDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {[
-                  { title: "إدارة المخزون المتقدمة", description: "تعلم كيفية إدارة المخزون بكفاءة عالية، وتتبع حركة المنتجات، وتنظيم المستودعات" },
-                  { title: "التحليلات وذكاء الأعمال", description: "استخدام تقارير النظام لاتخاذ قرارات تجارية مدروسة وتحسين الأداء" },
-                  { title: "تكامل النظام مع الأنظمة الأخرى", description: "كيفية ربط نظام إدارة المخزون مع أنظمة المحاسبة والتجارة الإلكترونية" },
-                  { title: "إدارة المستخدمين والصلاحيات", description: "إعداد أدوار المستخدمين وإدارة الصلاحيات لفريق العمل" }
+                  { title: t('advancedInventory'), description: t('advancedInventoryDesc') },
+                  { title: t('analyticsAndBI'), description: t('analyticsAndBIDesc') },
+                  { title: t('systemIntegration'), description: t('systemIntegrationDesc') },
+                  { title: t('userManagementGuide'), description: t('userManagementGuideDesc') }
                 ].map((guide, index) => (
                   <div key={index} className="flex items-start gap-4 border-b pb-4 last:border-0 last:pb-0">
                     <FileText className="h-5 w-5 text-primary mt-0.5" />
@@ -182,7 +187,7 @@ export default function HelpPage() {
                       <div className="font-medium">{guide.title}</div>
                       <div className="text-sm text-muted-foreground">{guide.description}</div>
                       <Button variant="link" className="px-0 py-1 h-auto">
-                        قراءة الدليل
+                        {t('readGuide')}
                       </Button>
                     </div>
                   </div>
@@ -196,10 +201,10 @@ export default function HelpPage() {
         <TabsContent value="videos" className="space-y-6">
           <div className="grid gap-6 md:grid-cols-2">
             {[
-              { title: "مقدمة في نظام إدارة المخزون", duration: "5:30", thumbnail: "bg-gray-200" },
-              { title: "كيفية إضافة وإدارة المنتجات", duration: "8:45", thumbnail: "bg-gray-200" },
-              { title: "إنشاء وإدارة الطلبات", duration: "7:20", thumbnail: "bg-gray-200" },
-              { title: "إدارة بيانات العملاء", duration: "6:15", thumbnail: "bg-gray-200" }
+              { title: t('videoIntro'), duration: "5:30", thumbnail: "bg-gray-200" },
+              { title: t('videoProducts'), duration: "8:45", thumbnail: "bg-gray-200" },
+              { title: t('videoOrders'), duration: "7:20", thumbnail: "bg-gray-200" },
+              { title: t('videoCustomers'), duration: "6:15", thumbnail: "bg-gray-200" }
             ].map((video, index) => (
               <Card key={index} className="overflow-hidden">
                 <div className={`aspect-video ${video.thumbnail} relative flex items-center justify-center`}>
@@ -215,7 +220,7 @@ export default function HelpPage() {
                 </CardHeader>
                 <CardContent className="pt-0">
                   <Button variant="outline" className="w-full">
-                    مشاهدة الفيديو
+                    {t('watchVideo')}
                   </Button>
                 </CardContent>
               </Card>
@@ -224,17 +229,17 @@ export default function HelpPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>سلسلة تعليمية: إتقان نظام إدارة المخزون</CardTitle>
-              <CardDescription>سلسلة فيديوهات متكاملة لتعلم جميع جوانب النظام</CardDescription>
+              <CardTitle>{t('videoSeriesTitle')}</CardTitle>
+              <CardDescription>{t('videoSeriesDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {[
-                  { title: "الدرس 1: نظرة عامة على النظام", duration: "10:15" },
-                  { title: "الدرس 2: إدارة المنتجات والمخزون", duration: "12:30" },
-                  { title: "الدرس 3: إدارة الطلبات والمبيعات", duration: "15:45" },
-                  { title: "الدرس 4: إدارة العملاء والموردين", duration: "11:20" },
-                  { title: "الدرس 5: التقارير والتحليلات", duration: "14:10" }
+                  { title: t('lesson1'), duration: "10:15" },
+                  { title: t('lesson2'), duration: "12:30" },
+                  { title: t('lesson3'), duration: "15:45" },
+                  { title: t('lesson4'), duration: "11:20" },
+                  { title: t('lesson5'), duration: "14:10" }
                 ].map((lesson, index) => (
                   <div key={index} className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0">
                     <div className="flex items-center gap-3">
@@ -246,7 +251,7 @@ export default function HelpPage() {
                     <div className="flex items-center gap-3">
                       <div className="text-sm text-muted-foreground">{lesson.duration}</div>
                       <Button variant="ghost" size="sm">
-                        مشاهدة
+                        {t('watch')}
                       </Button>
                     </div>
                   </div>
@@ -263,18 +268,18 @@ export default function HelpPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Phone className="h-5 w-5 text-primary" />
-                  <span>الدعم الفني عبر الهاتف</span>
+                  <span>{t('phoneSupport')}</span>
                 </CardTitle>
-                <CardDescription>تواصل مع فريق الدعم الفني مباشرة</CardDescription>
+                <CardDescription>{t('phoneSupportDesc')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-xl font-bold">+966 12 345 6789</div>
                 <div className="text-sm text-muted-foreground">
-                  متاح من الأحد إلى الخميس<br />
-                  9:00 صباحاً - 5:00 مساءً
+                  {t('availableTime')}<br />
+                  {t('workingHours')}
                 </div>
                 <Button className="w-full">
-                  اتصل الآن
+                  {t('callNow')}
                 </Button>
               </CardContent>
             </Card>
@@ -283,17 +288,17 @@ export default function HelpPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Mail className="h-5 w-5 text-primary" />
-                  <span>الدعم عبر البريد الإلكتروني</span>
+                  <span>{t('emailSupport')}</span>
                 </CardTitle>
-                <CardDescription>أرسل استفسارك وسنرد عليك في أقرب وقت</CardDescription>
+                <CardDescription>{t('emailSupportDesc')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-xl font-bold">support@example.com</div>
                 <div className="text-sm text-muted-foreground">
-                  نرد على جميع الاستفسارات خلال 24 ساعة
+                  {t('emailResponseTime')}
                 </div>
                 <Button className="w-full">
-                  إرسال بريد إلكتروني
+                  {t('sendEmail')}
                 </Button>
               </CardContent>
             </Card>
@@ -302,17 +307,17 @@ export default function HelpPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MessageCircle className="h-5 w-5 text-primary" />
-                  <span>الدردشة المباشرة</span>
+                  <span>{t('liveChat')}</span>
                 </CardTitle>
-                <CardDescription>تحدث مع أحد ممثلي خدمة العملاء مباشرة</CardDescription>
+                <CardDescription>{t('liveChatDesc')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="text-xl font-bold">متاح الآن</div>
+                <div className="text-xl font-bold">{t('availableNow')}</div>
                 <div className="text-sm text-muted-foreground">
-                  متوسط وقت الانتظار: 2 دقيقة
+                  {t('avgWaitTime')}
                 </div>
                 <Button className="w-full">
-                  بدء الدردشة
+                  {t('startChat')}
                 </Button>
               </CardContent>
             </Card>
@@ -320,36 +325,36 @@ export default function HelpPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>إرسال استفسار</CardTitle>
-              <CardDescription>أرسل استفسارك وسنرد عليك في أقرب وقت ممكن</CardDescription>
+              <CardTitle>{t('sendInquiry')}</CardTitle>
+              <CardDescription>{t('sendInquiryDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium">الاسم</label>
-                    <Input id="name" placeholder="أدخل اسمك" />
+                    <label htmlFor="name" className="text-sm font-medium">{tCommon('name')}</label>
+                    <Input id="name" placeholder={t('enterName')} />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium">البريد الإلكتروني</label>
-                    <Input id="email" type="email" placeholder="أدخل بريدك الإلكتروني" />
+                    <label htmlFor="email" className="text-sm font-medium">{tCommon('email')}</label>
+                    <Input id="email" type="email" placeholder={t('enterEmail')} />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="subject" className="text-sm font-medium">الموضوع</label>
-                  <Input id="subject" placeholder="أدخل موضوع الاستفسار" />
+                  <label htmlFor="subject" className="text-sm font-medium">{t('subject')}</label>
+                  <Input id="subject" placeholder={t('enterSubject')} />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium">الرسالة</label>
+                  <label htmlFor="message" className="text-sm font-medium">{t('message')}</label>
                   <textarea
                     id="message"
                     rows={5}
-                    placeholder="اكتب رسالتك هنا..."
+                    placeholder={t('writeMessage')}
                     className="w-full p-2 border rounded-md resize-none"
                   ></textarea>
                 </div>
                 <Button className="w-full">
-                  إرسال الاستفسار
+                  {t('sendInquiry')}
                 </Button>
               </div>
             </CardContent>

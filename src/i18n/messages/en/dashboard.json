@@ -1,0 +1,19 @@
+{
+  "title": "Dashboard",
+  "welcome": "Welcome to Inventory Management System",
+  "totalProducts": "Total Products",
+  "totalOrders": "Total Orders",
+  "totalCustomers": "Total Customers",
+  "totalRevenue": "Total Revenue",
+  "recentOrders": "Recent Orders",
+  "lowStockProducts": "Low Stock Products",
+  "viewAllOrders": "View All Orders",
+  "viewAllProducts": "View All Products",
+  "revenueComparison": "+20% compared to last month",
+  "newOrdersThisWeek": "+12 new orders this week",
+  "lowStockProductsCount": "15 low stock products",
+  "newCustomersThisMonth": "+5 new customers this month",
+  "orderNumberPrefix": "Order",
+  "newOrder": "New",
+  "remaining": "Remaining"
+}

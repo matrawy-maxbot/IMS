@@ -9,8 +9,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, Plus, Minus, Upload } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useTranslations } from 'next-intl';
 
 export default function AddProductPage() {
+  const t = useTranslations('products');
+  const tCommon = useTranslations('common');
+  
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [productCategory, setProductCategory] = useState("");
@@ -64,11 +68,11 @@ export default function AddProductPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">إضافة منتج جديد</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t('addProduct')}</h1>
         <Link href="/products">
           <Button variant="outline" className="flex items-center gap-1">
             <ArrowLeft className="h-4 w-4" />
-            <span>العودة للمنتجات</span>
+            <span>{tCommon('back')}</span>
           </Button>
         </Link>
       </div>
@@ -76,58 +80,58 @@ export default function AddProductPage() {
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>معلومات المنتج الأساسية</CardTitle>
+            <CardTitle>{t('basicInfo')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="product-name">اسم المنتج</Label>
+              <Label htmlFor="product-name">{t('productName')}</Label>
               <Input 
                 id="product-name" 
-                placeholder="أدخل اسم المنتج" 
+                placeholder={t('productName')}
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="product-description">وصف المنتج</Label>
+              <Label htmlFor="product-description">{tCommon('description')}</Label>
               <Textarea 
                 id="product-description" 
-                placeholder="أدخل وصف المنتج" 
+                placeholder={tCommon('description')}
                 className="min-h-32" 
                 value={productDescription}
                 onChange={(e) => setProductDescription(e.target.value)}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="product-category">الفئة</Label>
+              <Label htmlFor="product-category">{t('category')}</Label>
               <Select value={productCategory} onValueChange={setProductCategory}>
                 <SelectTrigger id="product-category">
-                  <SelectValue placeholder="اختر فئة المنتج" />
+                  <SelectValue placeholder={t('category')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="electronics">إلكترونيات</SelectItem>
-                  <SelectItem value="clothing">ملابس</SelectItem>
-                  <SelectItem value="food">مواد غذائية</SelectItem>
-                  <SelectItem value="furniture">أثاث</SelectItem>
-                  <SelectItem value="other">أخرى</SelectItem>
+                  <SelectItem value="electronics">{t('categoryElectronics')}</SelectItem>
+                  <SelectItem value="clothing">{t('categoryClothing')}</SelectItem>
+                  <SelectItem value="food">{t('categoryFood')}</SelectItem>
+                  <SelectItem value="furniture">{t('categoryFurniture')}</SelectItem>
+                  <SelectItem value="other">{t('categoryOther')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="product-barcode">الباركود</Label>
+                <Label htmlFor="product-barcode">{t('barcode')}</Label>
                 <Input 
                   id="product-barcode" 
-                  placeholder="أدخل الباركود" 
+                  placeholder={t('barcode')}
                   value={productBarcode}
                   onChange={(e) => setProductBarcode(e.target.value)}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="product-sku">رمز المنتج (SKU)</Label>
+                <Label htmlFor="product-sku">{t('sku')}</Label>
                 <Input 
                   id="product-sku" 
-                  placeholder="أدخل رمز المنتج" 
+                  placeholder={t('sku')}
                   value={productSKU}
                   onChange={(e) => setProductSKU(e.target.value)}
                 />
@@ -138,7 +142,7 @@ export default function AddProductPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>صور المنتج</CardTitle>
+            <CardTitle>{t('productImages')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-3 gap-4">
@@ -162,22 +166,22 @@ export default function AddProductPage() {
                   onClick={handleImageUpload}
                 >
                   <Upload className="h-8 w-8 text-muted-foreground" />
-                  <span className="text-xs text-muted-foreground">إضافة صورة</span>
+                  <span className="text-xs text-muted-foreground">{tCommon('upload')}</span>
                 </Button>
               )}
             </div>
-            <p className="text-xs text-muted-foreground">يمكنك إضافة حتى 6 صور للمنتج. الصيغ المدعومة: JPG، PNG.</p>
+            <p className="text-xs text-muted-foreground">{t('uploadMessage')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>معلومات التسعير والمخزون</CardTitle>
+            <CardTitle>{t('pricingAndInventory')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="sale-price">سعر البيع</Label>
+                <Label htmlFor="sale-price">{t('salePrice')}</Label>
                 <Input 
                   id="sale-price" 
                   type="number" 
@@ -187,7 +191,7 @@ export default function AddProductPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="purchase-cost">تكلفة الشراء</Label>
+                <Label htmlFor="purchase-cost">{t('purchaseCost')}</Label>
                 <Input 
                   id="purchase-cost" 
                   type="number" 
@@ -199,7 +203,7 @@ export default function AddProductPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="discount">الخصم (%)</Label>
+                <Label htmlFor="discount">{t('discount')} (%)</Label>
                 <Input 
                   id="discount" 
                   type="number" 
@@ -209,7 +213,7 @@ export default function AddProductPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="tax">الضريبة (%)</Label>
+                <Label htmlFor="tax">{t('tax')} (%)</Label>
                 <Input 
                   id="tax" 
                   type="number" 
@@ -221,7 +225,7 @@ export default function AddProductPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="quantity">الكمية المتوفرة</Label>
+                <Label htmlFor="quantity">{t('availableQuantity')}</Label>
                 <Input 
                   id="quantity" 
                   type="number" 
@@ -231,7 +235,7 @@ export default function AddProductPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="min-stock">الحد الأدنى للمخزون</Label>
+                <Label htmlFor="min-stock">{t('minStock')}</Label>
                 <Input 
                   id="min-stock" 
                   type="number" 
@@ -242,15 +246,15 @@ export default function AddProductPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="product-status">حالة المنتج</Label>
+              <Label htmlFor="product-status">{t('productStatus')}</Label>
               <Select value={productStatus} onValueChange={setProductStatus}>
                 <SelectTrigger id="product-status">
-                  <SelectValue placeholder="اختر حالة المنتج" />
+                  <SelectValue placeholder={t('productStatus')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="متوفر">متوفر</SelectItem>
-                  <SelectItem value="غير متوفر">غير متوفر</SelectItem>
-                  <SelectItem value="قيد الطلب">قيد الطلب</SelectItem>
+                  <SelectItem value="متوفر">{t('available')}</SelectItem>
+                  <SelectItem value="غير متوفر">{t('outOfStock')}</SelectItem>
+                  <SelectItem value="قيد الطلب">{t('statusPending')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -264,7 +268,7 @@ export default function AddProductPage() {
             onClick={handleSaveProduct}
           >
             <Plus className="h-4 w-4 mr-2" />
-            حفظ المنتج
+            {tCommon('save')}
           </Button>
         </div>
       </div>

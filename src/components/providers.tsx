@@ -357,7 +357,6 @@ export function UIProvider({ children }: { children: ReactNode }) {
         onClose={closeUserDialog}
         onSave={userDialog.onSave}
         user={userDialog.user}
-        title={userDialog.title}
       />
       <BackupDialog
         isOpen={backupDialog.isOpen}
@@ -370,7 +369,6 @@ export function UIProvider({ children }: { children: ReactNode }) {
         onClose={closeRoleDialog}
         onSave={roleDialog.onSave}
         role={roleDialog.role}
-        title={roleDialog.title}
       />
       <PermissionsDialog
         isOpen={permissionsDialog.isOpen}

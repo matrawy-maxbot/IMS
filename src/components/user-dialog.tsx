@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogContent,
@@ -34,7 +35,6 @@ interface UserDialogProps {
   onClose: () => void;
   onSave: (userData: UserData) => void;
   user?: UserData; // إذا كان موجودًا، فهذا تعديل لمستخدم موجود
-  title?: string;
 }
 
 export function UserDialog({
@@ -42,8 +42,9 @@ export function UserDialog({
   onClose,
   onSave,
   user,
-  title = "إضافة مستخدم جديد",
 }: UserDialogProps) {
+  const t = useTranslations("dialogs.user");
+  const tCommon = useTranslations("common");
   const [userData, setUserData] = useState<UserData>({
     name: user?.name || "",
     email: user?.email || "",
@@ -87,29 +88,27 @@ export function UserDialog({
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleCancel()}>
       <DialogContent className="font-tajawal sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle>{isEditMode ? t("titleEdit") : t("titleAdd")}</DialogTitle>
           <DialogDescription>
-            {isEditMode 
-              ? "قم بتعديل بيانات المستخدم. ترك حقل كلمة المرور فارغًا يعني عدم تغييرها." 
-              : "قم بإدخال بيانات المستخدم الجديد لإضافته إلى النظام."}
+            {isEditMode ? t("descriptionEdit") : t("descriptionAdd")}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="name">اسم المستخدم</Label>
+            <Label htmlFor="name">{t("name")}</Label>
             <div className="flex items-center">
               <User className="h-4 w-4 ml-2 text-muted-foreground" />
               <Input 
                 id="name" 
                 value={userData.name}
                 onChange={(e) => handleChange("name", e.target.value)}
-                placeholder="أدخل اسم المستخدم"
+                placeholder={t("namePlaceholder")}
               />
             </div>
           </div>
           
           <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="email">البريد الإلكتروني</Label>
+            <Label htmlFor="email">{t("email")}</Label>
             <div className="flex items-center">
               <Mail className="h-4 w-4 ml-2 text-muted-foreground" />
               <Input 
@@ -117,13 +116,13 @@ export function UserDialog({
                 type="email"
                 value={userData.email}
                 onChange={(e) => handleChange("email", e.target.value)}
-                placeholder="أدخل البريد الإلكتروني"
+                placeholder={t("emailPlaceholder")}
               />
             </div>
           </div>
           
           <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="password">{isEditMode ? "كلمة المرور (اتركها فارغة للإبقاء عليها)" : "كلمة المرور"}</Label>
+            <Label htmlFor="password">{isEditMode ? t("passwordEdit") : t("password")}</Label>
             <div className="flex items-center">
               <Key className="h-4 w-4 ml-2 text-muted-foreground" />
               <Input 
@@ -131,13 +130,13 @@ export function UserDialog({
                 type="password"
                 value={userData.password}
                 onChange={(e) => handleChange("password", e.target.value)}
-                placeholder={isEditMode ? "اتركها فارغة للإبقاء على كلمة المرور الحالية" : "أدخل كلمة المرور"}
+                placeholder={isEditMode ? t("passwordEditPlaceholder") : t("passwordPlaceholder")}
               />
             </div>
           </div>
           
           <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="role">الدور</Label>
+            <Label htmlFor="role">{t("role")}</Label>
             <div className="flex items-center">
               <Shield className="h-4 w-4 ml-2 text-muted-foreground" />
               <Select 
@@ -145,22 +144,22 @@ export function UserDialog({
                 onValueChange={(value) => handleChange("role", value)}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="اختر دور المستخدم" />
+                  <SelectValue placeholder={t("rolePlaceholder")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="admin">مدير</SelectItem>
-                  <SelectItem value="manager">مشرف</SelectItem>
-                  <SelectItem value="user">مستخدم</SelectItem>
-                  <SelectItem value="accountant">محاسب</SelectItem>
-                  <SelectItem value="inventory">أمين مخزن</SelectItem>
+                  <SelectItem value="admin">{t("roleAdmin")}</SelectItem>
+                  <SelectItem value="manager">{t("roleManager")}</SelectItem>
+                  <SelectItem value="user">{t("roleUser")}</SelectItem>
+                  <SelectItem value="accountant">{t("roleAccountant")}</SelectItem>
+                  <SelectItem value="inventory">{t("roleInventory")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
         </div>
         <DialogFooter className="sm:justify-between">
-          <Button variant="outline" onClick={handleCancel}>إلغاء</Button>
-          <Button onClick={handleSave}>{isEditMode ? "حفظ التغييرات" : "إضافة المستخدم"}</Button>
+          <Button variant="outline" onClick={handleCancel}>{tCommon("cancel")}</Button>
+          <Button onClick={handleSave}>{isEditMode ? t("saveEdit") : t("saveAdd")}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

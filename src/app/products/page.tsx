@@ -22,8 +22,11 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import { useState } from "react";
+import { useTranslations } from 'next-intl';
 
 export default function Products() {
+  const t = useTranslations('products');
+  const tCommon = useTranslations('common');
   const [searchQuery, setSearchQuery] = useState("");
   
   // Mock data for products
@@ -68,12 +71,12 @@ export default function Products() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">المنتجات</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
       </div>
 
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-2xl">قائمة المنتجات</CardTitle>
+          <CardTitle className="text-2xl">{t('list')}</CardTitle>
           <div className="flex gap-2">
             <Button 
               variant="outline" 
@@ -81,12 +84,12 @@ export default function Products() {
               onClick={handleExport}
             >
               <Download className="h-4 w-4" />
-              <span>تصدير</span>
+              <span>{tCommon('export')}</span>
             </Button>
             <Link href="/products/add">
               <Button className="flex items-center gap-1">
                 <Plus className="h-4 w-4" />
-                <span>إضافة منتج</span>
+                <span>{t('addProduct')}</span>
               </Button>
             </Link>
           </div>
@@ -95,7 +98,7 @@ export default function Products() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
             <div className="flex items-center gap-2 w-full md:w-auto">
               <Input 
-                placeholder="بحث عن منتج..." 
+                placeholder={tCommon('search')}
                 className="max-w-sm" 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -106,7 +109,7 @@ export default function Products() {
                 onClick={handleSearch}
               >
                 <Search className="h-4 w-4 ml-2" />
-                <span>بحث</span>
+                <span>{tCommon('search')}</span>
               </Button>
             </div>
             <Button 
@@ -115,21 +118,21 @@ export default function Products() {
               onClick={handleFilter}
             >
               <Filter className="h-4 w-4" />
-              <span>تصفية</span>
+              <span>{tCommon('filter')}</span>
             </Button>
           </div>
           <div className="rounded-md border overflow-hidden">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[80px]">الصورة</TableHead>
-                  <TableHead>الاسم</TableHead>
-                  <TableHead>الرمز</TableHead>
-                  <TableHead>السعر</TableHead>
-                  <TableHead>الكمية المتوفرة</TableHead>
-                  <TableHead>الحالة</TableHead>
-                  <TableHead>التصنيف</TableHead>
-                  <TableHead className="text-left">الإجراءات</TableHead>
+                  <TableHead className="w-[80px]">{tCommon('image')}</TableHead>
+                  <TableHead>{tCommon('name')}</TableHead>
+                  <TableHead>{t('code')}</TableHead>
+                  <TableHead>{tCommon('price')}</TableHead>
+                  <TableHead>{t('availableQuantity')}</TableHead>
+                  <TableHead>{tCommon('status')}</TableHead>
+                  <TableHead>{t('category')}</TableHead>
+                  <TableHead className="text-left">{tCommon('actions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -142,7 +145,7 @@ export default function Products() {
                     </TableCell>
                     <TableCell className="font-medium">{product.name}</TableCell>
                     <TableCell>{product.code}</TableCell>
-                    <TableCell>{product.price} ريال</TableCell>
+                    <TableCell>{product.price} {tCommon('price')}</TableCell>
                     <TableCell>{product.quantity}</TableCell>
                     <TableCell>
                       <span className={`px-2 py-1 rounded-full text-xs ${product.status === "متوفر" ? "bg-green-100 text-green-800" : product.status === "منخفض المخزون" ? "bg-yellow-100 text-yellow-800" : "bg-red-100 text-red-800"}`}>
@@ -180,7 +183,7 @@ export default function Products() {
               size="sm"
               onClick={() => console.log("Previous page")}
             >
-              السابق
+              {tCommon('previous')}
             </Button>
             <Button 
               variant="outline" 
@@ -209,7 +212,7 @@ export default function Products() {
               size="sm"
               onClick={() => console.log("Next page")}
             >
-              التالي
+              {tCommon('next')}
             </Button>
           </div>
         </CardContent>
