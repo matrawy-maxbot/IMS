@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import {
   Dialog,
   DialogContent,
@@ -44,6 +44,7 @@ export function BackupDialog({
 }: BackupDialogProps) {
   const t = useTranslations("dialogs.backup");
   const tCommon = useTranslations("common");
+  const locale = useLocale();
   const [selectedBackupId, setSelectedBackupId] = useState<string | null>(null);
 
   const handleSelectBackup = (backupId: string) => {
@@ -72,14 +73,14 @@ export function BackupDialog({
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
-          <Table>
+          <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[50px]"></TableHead>
-                <TableHead>{t("backupName")}</TableHead>
-                <TableHead>{t("backupDate")}</TableHead>
-                <TableHead>{t("backupSize")}</TableHead>
-                <TableHead>{t("backupType")}</TableHead>
+                <TableHead className="w-[50px]" style={locale === 'en' ? { textAlignLast: 'left' } : {}}></TableHead>
+                <TableHead style={locale === 'en' ? { textAlignLast: 'left' } : {}}>{t("backupName")}</TableHead>
+                <TableHead style={locale === 'en' ? { textAlignLast: 'left' } : {}}>{t("backupDate")}</TableHead>
+                <TableHead style={locale === 'en' ? { textAlignLast: 'left' } : {}}>{t("backupSize")}</TableHead>
+                <TableHead style={locale === 'en' ? { textAlignLast: 'left' } : {}}>{t("backupType")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

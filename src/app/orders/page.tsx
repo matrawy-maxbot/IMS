@@ -7,11 +7,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Plus, Search, Filter, Download, Eye, FileEdit, Trash2, Calendar, ShoppingCart, TrendingUp, AlertCircle } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 export default function OrdersPage() {
   const t = useTranslations('orders');
   const tCommon = useTranslations('common');
+  const locale = useLocale();
   
   const [searchQuery, setSearchQuery] = useState("");
   const [dateFilter, setDateFilter] = useState("");
@@ -189,7 +190,7 @@ export default function OrdersPage() {
             </div>
           </div>
           <div className="rounded-md border overflow-hidden">
-            <Table>
+            <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
               <TableHeader>
                 <TableRow>
                   <TableHead>{t('orderNumber')}</TableHead>

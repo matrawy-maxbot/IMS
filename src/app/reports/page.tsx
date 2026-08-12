@@ -6,11 +6,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Download, Calendar, Filter, BarChart, LineChart, PieChart, TrendingUp, TrendingDown, DollarSign, Package, Users, ShoppingCart } from "lucide-react";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 export default function ReportsPage() {
   const t = useTranslations('reports');
   const tCommon = useTranslations('common');
+  const locale = useLocale();
   
   return (
     <div className="flex flex-col gap-8">
@@ -201,7 +202,7 @@ export default function ReportsPage() {
                 <CardDescription>{t('last30Days')}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
+                <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
                   <TableHeader>
                     <TableRow>
                       <TableHead>{t('product')}</TableHead>
@@ -380,7 +381,7 @@ export default function ReportsPage() {
               <CardDescription>{t('productsNeedingReorder')}</CardDescription>
             </CardHeader>
             <CardContent>
-              <Table>
+              <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
                 <TableHeader>
                   <TableRow>
                     <TableHead>{t('product')}</TableHead>
@@ -468,7 +469,7 @@ export default function ReportsPage() {
               <CardDescription>{t('topCustomersDescText', { period: 12 })}</CardDescription>
             </CardHeader>
             <CardContent>
-              <Table>
+              <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
                 <TableHeader>
                   <TableRow>
                     <TableHead>{t('customer')}</TableHead>

@@ -22,11 +22,12 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import { useState } from "react";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 export default function Products() {
   const t = useTranslations('products');
   const tCommon = useTranslations('common');
+  const locale =  useLocale();
   const [searchQuery, setSearchQuery] = useState("");
   
   // Mock data for products
@@ -122,7 +123,7 @@ export default function Products() {
             </Button>
           </div>
           <div className="rounded-md border overflow-hidden">
-            <Table>
+            <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[80px]">{tCommon('image')}</TableHead>

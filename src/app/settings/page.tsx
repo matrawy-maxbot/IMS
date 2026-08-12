@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,6 +13,7 @@ import { useUI } from "@/components/providers";
 export default function SettingsPage() {
   const t = useTranslations('settings');
   const tCommon = useTranslations('common');
+  const locale = useLocale();
   
   // استخدام مكون UI للتنبيهات والتأكيدات والحوارات
   const { showToast, showDeleteConfirmation, showLogoDialog, showUserDialog, showBackupDialog, showRoleDialog, showPermissionsDialog } = useUI();
@@ -479,7 +480,7 @@ export default function SettingsPage() {
               </Button>
             </CardHeader>
             <CardContent>
-              <Table>
+              <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
                 <TableHeader>
                   <TableRow>
                     <TableHead>{t('userName')}</TableHead>
@@ -533,7 +534,7 @@ export default function SettingsPage() {
               </Button>
             </CardHeader>
             <CardContent>
-              <Table>
+              <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
                 <TableHeader>
                   <TableRow>
                     <TableHead>{t('roleName')}</TableHead>
@@ -781,7 +782,7 @@ export default function SettingsPage() {
               <CardDescription>عرض سجل تسجيل الدخول للمستخدمين</CardDescription>
             </CardHeader>
             <CardContent>
-              <Table>
+              <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
                 <TableHeader>
                   <TableRow>
                     <TableHead>{t('user')}</TableHead>

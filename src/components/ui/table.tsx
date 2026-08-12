@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useLocale } from "next-intl";
 
 import { cn } from "@/lib/utils";
 
@@ -10,6 +11,7 @@ const Table = React.forwardRef<
     <table
       ref={ref}
       className={cn("w-full caption-bottom text-sm", className)}
+      style={useLocale() === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}
       {...props}
     />
   </div>

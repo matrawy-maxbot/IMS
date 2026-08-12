@@ -6,11 +6,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { ArrowLeft, Printer, Download, Package, Edit, Trash2, Clock, CreditCard, Truck, User, Phone, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 export default function OrderDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const t = useTranslations("orderDetails");
   const tCommon = useTranslations("common");
+  const locale = useLocale();
   
   // Unwrap params using React.use()
   const resolvedParams = use(params);
@@ -83,7 +84,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
             </CardHeader>
             <CardContent>
               <div className="rounded-md border overflow-hidden">
-                <Table>
+                <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
                   <TableHeader>
                     <TableRow>
                       <TableHead className="w-[80px]">{t("image")}</TableHead>

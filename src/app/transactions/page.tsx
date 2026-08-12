@@ -327,17 +327,17 @@ export default function TransactionsPage() {
             {/* Transactions Table */}
             <TabsContent value={activeTab} className="mt-0">
               <div className="rounded-md border overflow-hidden">
-                <Table>
+                <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
                   <TableHeader>
                     <TableRow>
-                      <TableHead style={locale === 'en' ? { textAlignLast: 'left' } : {}}>{t('date')}</TableHead>
-                      <TableHead style={locale === 'en' ? { textAlignLast: 'left' } : {}}>{t('reference')}</TableHead>
-                      <TableHead style={locale === 'en' ? { textAlignLast: 'left' } : {}}>{t('category')}</TableHead>
-                      <TableHead style={locale === 'en' ? { textAlignLast: 'left' } : {}}>{tCommon('description')}</TableHead>
-                      <TableHead style={locale === 'en' ? { textAlignLast: 'left' } : {}}>{t('paymentMethod')}</TableHead>
-                      <TableHead style={locale === 'en' ? { textAlignLast: 'left' } : {}}>{t('amount')}</TableHead>
-                      <TableHead style={locale === 'en' ? { textAlignLast: 'left' } : {}}>{tCommon('status')}</TableHead>
-                      <TableHead className="text-left" style={locale === 'en' ? { textAlignLast: 'left' } : {}}>{tCommon('actions')}</TableHead>
+                      <TableHead >{t('date')}</TableHead>
+                      <TableHead>{t('reference')}</TableHead>
+                      <TableHead>{t('category')}</TableHead>
+                      <TableHead>{tCommon('description')}</TableHead>
+                      <TableHead>{t('paymentMethod')}</TableHead>
+                      <TableHead>{t('amount')}</TableHead>
+                      <TableHead>{tCommon('status')}</TableHead>
+                      <TableHead className="text-left">{tCommon('actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>

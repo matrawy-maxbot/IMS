@@ -7,11 +7,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Plus, Search, Filter, Download, Eye, FileEdit, Trash2, Users, UserPlus, Phone } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 export default function CustomersPage() {
   const t = useTranslations('customers');
   const tCommon = useTranslations('common');
+  const locale = useLocale();
   const [searchQuery, setSearchQuery] = useState("");
 
   // Mock data for customers
@@ -152,7 +153,7 @@ export default function CustomersPage() {
             </Button>
           </div>
           <div className="rounded-md border overflow-hidden">
-            <Table>
+            <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
               <TableHeader>
                 <TableRow>
                   <TableHead>{tCommon('name')}</TableHead>
