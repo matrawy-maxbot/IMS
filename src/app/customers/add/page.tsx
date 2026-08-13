@@ -69,10 +69,10 @@ export default function AddCustomerPage() {
               </div>
             
             <div className="space-y-2">
-              <Label htmlFor="status">{tCommon('status')}</Label>
-              <select id="status" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-                <option value="active">{tCommon('active')}</option>
-                <option value="inactive">{tCommon('inactive')}</option>
+              <Label htmlFor="gender">{t('gender')}</Label>
+              <select id="gender" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                <option value="male">{t('male')}</option>
+                <option value="female">{t('female')}</option>
               </select>
             </div>
           </CardContent>
@@ -117,43 +117,6 @@ export default function AddCustomerPage() {
                   <option value="qa">{t('countryQA')}</option>
                   <option value="om">{t('countryOM')}</option>
                 </select>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl">{t('additionalInfo')}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="tax-number">{t('taxNumber')}</Label>
-                <Input id="tax-number" placeholder={t('taxNumber')} />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="notes">{tCommon('notes')}</Label>
-                <textarea id="notes" className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder={tCommon('notes')}></textarea>
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="payment-terms">{t('paymentTerms')}</Label>
-                <select id="payment-terms" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-                  <option value="immediate">{t('immediatePayment')}</option>
-                  <option value="15-days">{t('fifteenDays')}</option>
-                  <option value="30-days">{t('thirtyDays')}</option>
-                  <option value="60-days">{t('sixtyDays')}</option>
-                </select>
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="credit-limit">{t('creditLimit')}</Label>
-                <div className="relative">
-                  <Input id="credit-limit" type="number" placeholder="0" />
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <span className="text-muted-foreground">{t('currencySymbol')}</span>
-                  </div>
-                </div>
               </div>
             </CardContent>
           </Card>

@@ -43,5 +43,10 @@
   "image": "Image",
   "name": "Name",
   "description": "Description",
-  "notes": "Notes"
+  "notes": "Notes",
+  "appName": "Inventory Management System",
+  "appTagline": "Smart Inventory Solutions",
+  "allRightsReserved": "All rights reserved",
+  "editInformation": "Edit the information below",
+  "products": "products"
 }

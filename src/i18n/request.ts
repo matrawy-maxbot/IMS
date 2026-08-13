@@ -20,6 +20,9 @@ async function loadMessages(locale: string) {
     settings: (await import(`./messages/${locale}/settings.json`)).default,
     help: (await import(`./messages/${locale}/help.json`)).default,
     dialogs: (await import(`./messages/${locale}/dialogs.json`)).default,
+    warehouses: (await import(`./messages/${locale}/warehouses.json`)).default,
+    userSettings: (await import(`./messages/${locale}/userSettings.json`)).default,
+    welcome: (await import(`./messages/${locale}/welcome.json`)).default,
   };
 
   return messages;

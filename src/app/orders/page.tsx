@@ -146,7 +146,7 @@ export default function OrdersPage() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6" data-tour="orders-filter">
             <div className="flex items-center gap-2 w-full md:w-auto">
               <Input 
                 placeholder={tCommon('search')}
@@ -189,7 +189,7 @@ export default function OrdersPage() {
               </Button>
             </div>
           </div>
-          <div className="rounded-md border overflow-hidden">
+          <div className="rounded-md border overflow-hidden" data-tour="orders-table">
             <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
               <TableHeader>
                 <TableRow>
@@ -210,12 +210,15 @@ export default function OrdersPage() {
                     <TableCell>{order.date}</TableCell>
                     <TableCell>{order.total} {tCommon('total')}</TableCell>
                     <TableCell>
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        order.status === "مكتمل" ? "bg-green-100 text-green-800" : 
-                        order.status === "قيد التجهيز" ? "bg-blue-100 text-blue-800" : 
-                        order.status === "قيد الشحن" ? "bg-yellow-100 text-yellow-800" : 
-                        "bg-red-100 text-red-800"
-                      }`}>
+                      <span 
+                        className={`px-2 py-1 rounded-full text-xs ${
+                          order.status === "مكتمل" ? "bg-green-100 text-green-800" : 
+                          order.status === "قيد التجهيز" ? "bg-blue-100 text-blue-800" : 
+                          order.status === "قيد الشحن" ? "bg-yellow-100 text-yellow-800" : 
+                          "bg-red-100 text-red-800"
+                        }`}
+                        data-tour="order-status-badge"
+                      >
                         {order.status}
                       </span>
                     </TableCell>

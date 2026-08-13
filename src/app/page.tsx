@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from 'next-intl';
+import { WelcomeToast } from "@/components/welcome-toast";
 
 export default function Home() {
   const t = useTranslations('dashboard');
@@ -21,11 +22,12 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-8">
+      <WelcomeToast />
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4" data-tour="stats-cards">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">{t('totalRevenue')}</CardTitle>
@@ -77,7 +79,7 @@ export default function Home() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="col-span-4">
+        <Card className="col-span-4" data-tour="recent-orders">
           <CardHeader>
             <CardTitle>{t('recentOrders')}</CardTitle>
           </CardHeader>
@@ -109,7 +111,7 @@ export default function Home() {
             </div>
           </CardContent>
         </Card>
-        <Card className="col-span-3">
+        <Card className="col-span-3" data-tour="low-stock">
           <CardHeader>
             <CardTitle>{t('lowStockProducts')}</CardTitle>
           </CardHeader>

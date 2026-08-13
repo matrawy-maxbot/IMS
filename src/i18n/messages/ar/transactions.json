@@ -37,5 +37,7 @@
   "completed": "مكتمل",
   "pending": "قيد الانتظار",
   "cancelled": "ملغي",
-  "processing": "معالج"
+  "processing": "معالج",
+  "month": "شهر",
+  "lastWeek": "الأسبوع الماضي"
 }

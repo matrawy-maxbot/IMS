@@ -162,13 +162,13 @@ export default function TransactionsPage() {
   const getTransactionColor = (type: TransactionType) => {
     switch (type) {
       case "revenue":
-        return "text-green-600";
+        return "text-green-500";
       case "expense":
-        return "text-red-600";
+        return "text-red-400";
       case "return":
-        return "text-yellow-600";
+        return "text-yellow-500";
       case "withdrawal":
-        return "text-blue-600";
+        return "text-blue-400";
     }
   };
 
@@ -180,74 +180,202 @@ export default function TransactionsPage() {
 
       {/* Statistics Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('totalRevenue')}</CardTitle>
-            <ArrowUpCircle className="h-4 w-4 text-green-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">{totalRevenue.toLocaleString()} {t('currency')}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              {transactions.filter(t => t.type === "revenue").length} {t('transactions')}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('totalExpenses')}</CardTitle>
-            <ArrowDownCircle className="h-4 w-4 text-red-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-red-600">{totalExpenses.toLocaleString()} {t('currency')}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              {transactions.filter(t => t.type === "expense").length} {t('transactions')}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('totalReturns')}</CardTitle>
-            <RotateCcw className="h-4 w-4 text-yellow-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-yellow-600">{totalReturns.toLocaleString()} {t('currency')}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              {transactions.filter(t => t.type === "return").length} {t('transactions')}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('totalWithdrawals')}</CardTitle>
-            <Wallet className="h-4 w-4 text-blue-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-blue-600">{totalWithdrawals.toLocaleString()} {t('currency')}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              {transactions.filter(t => t.type === "withdrawal").length} {t('transactions')}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className={netProfit >= 0 ? "border-green-200" : "border-red-200"}>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('netProfit')}</CardTitle>
-            {netProfit >= 0 ? (
-              <TrendingUp className="h-4 w-4 text-green-500" />
-            ) : (
-              <TrendingDown className="h-4 w-4 text-red-500" />
-            )}
-          </CardHeader>
-          <CardContent>
-            <div className={`text-2xl font-bold ${netProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {netProfit.toLocaleString()} {t('currency')}
+        {/* Total Revenue Card */}
+        <Card className="relative overflow-hidden bg-white dark:bg-[#0b101c]">
+          <CardContent className="p-6">
+            <div className="flex justify-between items-start mb-8">
+              <div className="space-y-3">
+                <div className="flex items-center gap-1">
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap">{t('totalRevenue')}</h3>
+                  <span className="text-xs text-gray-400 dark:text-gray-500" style={{ fontSize: '.6rem', lineHeight: 1, marginTop: 'auto' }}>/ {t('month')}</span>
+                </div>
+                <div className="text-[2.5rem] font-bold text-gray-900 dark:text-white" style={{ fontFamily: '"Cairo", sans-serif' }}>
+                  <span className="text-[#e8e8e8] dark:text-[#151f36] text-4xl font-semibold">$</span>{(totalRevenue / 1000).toFixed(1)}<span className="text-3xl font-medium text-[#8e95a0]">k</span>
+                </div>
+                <div className="flex items-center gap-1 absolute bottom-[1.5rem]">
+                  <div className="flex items-center gap-1 text-green-400 text-xs font-medium">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-green-600">
+                      <path d="M6 3L6 9M6 3L9 6M6 3L3 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span>+23%</span>
+                  </div>
+                  <span className="text-xs text-gray-400">{t('lastWeek')}</span>
+                </div>
+              </div>
+              <div className="relative w-24 h-16">
+                {/* Sparkline SVG - Purple curved line with gradient */}
+                <svg width="96" height="64" viewBox="0 0 96 64" fill="none" className="absolute top-0 right-0">
+                  <path d="M0 48C8 45, 16 38, 24 35C32 32, 40 28, 48 32C56 36, 64 42, 72 38C80 34, 88 28, 96 24" 
+                        stroke="#8B5CF6" 
+                        strokeWidth="2" 
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"/>
+                  <text x="92" y="20" fontSize="10" fill="#8B5CF6" fontWeight="600">23%</text>
+                </svg>
+              </div>
             </div>
-            <p className="text-xs text-muted-foreground mt-1">
-              {t('afterDeductions')}
-            </p>
+          </CardContent>
+        </Card>
+
+        {/* Total Expenses Card */}
+        <Card className="relative overflow-hidden bg-white dark:bg-[#0b101c]">
+          <CardContent className="p-6">
+            <div className="flex justify-between items-start mb-8">
+              <div className="space-y-3">
+                <div className="flex items-center gap-1">
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap">{t('totalExpenses')}</h3>
+                  <span className="text-xs text-gray-400 dark:text-gray-500" style={{ fontSize: '.6rem', lineHeight: 1, marginTop: 'auto' }}>/ {t('month')}</span>
+                </div>
+                <div  className="text-[2.5rem] font-bold text-gray-900 dark:text-white" style={{ fontFamily: '"Cairo", sans-serif' }}>
+                  <span className="text-[#e8e8e8] dark:text-[#151f36] text-4xl font-semibold">$</span>{(totalExpenses / 1000).toFixed(1)}<span className="text-3xl font-medium text-[#8e95a0]">k</span>
+                </div>
+                <div className="flex items-center gap-1 absolute bottom-[1.5rem]">
+                  <div className="flex items-center gap-1 text-red-400 text-xs font-medium">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-red-600">
+                      <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                    </svg>
+                    <span>-18%</span>
+                  </div>
+                  <span className="text-xs text-gray-400">{t('lastWeek')}</span>
+                </div>
+              </div>
+              <div className="relative w-24 h-16">
+                {/* Sparkline SVG - Yellow curved line */}
+                <svg width="96" height="64" viewBox="0 0 96 64" fill="none" className="absolute top-0 right-0">
+                  <path d="M0 32C8 28, 16 35, 24 38C32 41, 40 45, 48 42C56 39, 64 35, 72 38C80 41, 88 45, 96 48" 
+                        stroke="#F59E0B" 
+                        strokeWidth="2" 
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"/>
+                  <text x="92" y="44" fontSize="10" fill="#F59E0B" fontWeight="600">38%</text>
+                </svg>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Total Returns Card */}
+        <Card className="relative overflow-hidden bg-white dark:bg-[#0b101c]">
+          <CardContent className="p-6">
+            <div className="flex justify-between items-start mb-8">
+              <div className="space-y-3">
+                <div className="flex items-center gap-1">
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap">{t('totalReturns')}</h3>
+                  <span className="text-xs text-gray-400 dark:text-gray-500" style={{ fontSize: '.6rem', lineHeight: 1, marginTop: 'auto' }}>/ {t('month')}</span>
+                </div>
+                <div className="text-[2.5rem] font-bold text-gray-900 dark:text-white" style={{ fontFamily: '"Cairo", sans-serif' }}>
+                  <span className="text-[#e8e8e8] dark:text-[#151f36] text-4xl font-semibold">$</span>{(totalReturns / 1000).toFixed(1)}<span className="text-3xl font-medium text-[#8e95a0]">k</span>
+                </div>
+                <div className="flex items-center gap-1 absolute bottom-[1.5rem]">
+                  <div className="flex items-center gap-1 text-green-400 text-xs font-medium">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-green-600">
+                      <path d="M6 3L6 9M6 3L9 6M6 3L3 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span>+5%</span>
+                  </div>
+                  <span className="text-xs text-gray-400">{t('lastWeek')}</span>
+                </div>
+              </div>
+              <div className="relative w-24 h-16">
+                {/* Sparkline SVG - Cyan curved line */}
+                <svg width="96" height="64" viewBox="0 0 96 64" fill="none" className="absolute top-0 right-0">
+                  <path d="M0 45C8 42, 16 35, 24 32C32 29, 40 25, 48 28C56 31, 64 38, 72 35C80 32, 88 25, 96 22" 
+                        stroke="#06B6D4" 
+                        strokeWidth="2" 
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"/>
+                  <text x="92" y="18" fontSize="10" fill="#06B6D4" fontWeight="600">92%</text>
+                </svg>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Total Withdrawals Card */}
+        <Card className="relative overflow-hidden bg-white dark:bg-[#0b101c]">
+          <CardContent className="p-6">
+            <div className="flex justify-between items-start mb-8">
+              <div className="space-y-3">
+                <div className="flex items-center gap-1">
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap">{t('totalWithdrawals')}</h3>
+                  <span className="text-xs text-gray-400 dark:text-gray-500" style={{ fontSize: '.6rem', lineHeight: 1, marginTop: 'auto' }}>/ {t('month')}</span>
+                </div>
+                <div className="text-[2.5rem] font-bold text-gray-900 dark:text-white" style={{ fontFamily: '"Cairo", sans-serif' }}>
+                  <span className="text-[#e8e8e8] dark:text-[#151f36] text-4xl font-semibold">$</span>{(totalWithdrawals / 1000).toFixed(1)}<span className="text-3xl font-medium text-[#8e95a0]">k</span>
+                </div>
+                <div className="flex items-center gap-1 absolute bottom-[1.5rem]">
+                  <div className="flex items-center gap-1 text-red-400 text-xs font-medium">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-red-600">
+                      <path d="M6 9L6 3M6 9L3 6M6 9L9 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span>-12%</span>
+                  </div>
+                  <span className="text-xs text-gray-400">{t('lastWeek')}</span>
+                </div>
+              </div>
+              <div className="relative w-24 h-16">
+                {/* Sparkline SVG - Blue curved line */}
+                <svg width="96" height="64" viewBox="0 0 96 64" fill="none" className="absolute top-0 right-0">
+                  <path d="M0 35C8 32, 16 38, 24 42C32 46, 40 50, 48 46C56 42, 64 38, 72 42C80 46, 88 52, 96 55" 
+                        stroke="#3B82F6" 
+                        strokeWidth="2" 
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"/>
+                  <text x="92" y="50" fontSize="10" fill="#3B82F6" fontWeight="600">85%</text>
+                </svg>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Net Profit Card */}
+        <Card className={`relative overflow-hidden ${netProfit >= 0 ? "bg-gradient-to-br from-green-50 to-white dark:from-green-900/20 dark:to-gray-800" : "bg-gradient-to-br from-red-50 to-white dark:from-red-900/20 dark:to-gray-800"}`}>
+          <CardContent className="p-6">
+            <div className="flex justify-between items-start mb-8">
+              <div className="space-y-3">
+                <div className="flex items-center gap-1">
+                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap">{t('netProfit')}</h3>
+                  <span className="text-xs text-gray-400 dark:text-gray-500" style={{ fontSize: '.6rem', lineHeight: 1, marginTop: 'auto' }}>/ {t('month')}</span>
+                </div>
+                <div className={`text-[2.5rem] font-bold ${netProfit >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`} style={{ fontFamily: '"Cairo", sans-serif' }}>
+                  <span className="text-[#d5ecda] text-4xl font-semibold">$</span>{(Math.abs(netProfit) / 1000).toFixed(1)}<span className="text-3xl font-medium text-[#85ba96]">k</span>
+                </div>
+                <div className="flex items-center gap-1 absolute bottom-[1.5rem]">
+                  {netProfit >= 0 ? (
+                    <div className="flex items-center gap-1 text-green-600 text-xs font-medium">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-green-600">
+                        <path d="M6 3L6 9M6 3L9 6M6 3L3 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      <span>+15%</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-1 text-red-600 text-xs font-medium">
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-red-600">
+                        <path d="M6 9L6 3M6 9L3 6M6 9L9 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      <span>-15%</span>
+                    </div>
+                  )}
+                  <span className="text-xs text-gray-400">{t('lastWeek')}</span>
+                </div>
+              </div>
+              <div className="relative w-24 h-16">
+                {/* Sparkline SVG - Green or Red curved line */}
+                <svg width="96" height="64" viewBox="0 0 96 64" fill="none" className="absolute top-0 right-0">
+                  <path d="M0 40C8 35, 16 30, 24 28C32 26, 40 22, 48 26C56 30, 64 35, 72 32C80 29, 88 24, 96 20" 
+                        stroke={netProfit >= 0 ? "#10B981" : "#EF4444"}
+                        strokeWidth="2" 
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"/>
+                  <text x="88" y="16" fontSize="10" fill={netProfit >= 0 ? "#10B981" : "#EF4444"} fontWeight="600">78%</text>
+                </svg>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>

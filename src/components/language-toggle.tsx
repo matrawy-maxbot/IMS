@@ -26,7 +26,7 @@ export function LanguageToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" disabled={isPending}>
+        <Button variant="ghost" size="icon" disabled={isPending} data-tour="language">
           <Languages className="h-[1.2rem] w-[1.2rem]" />
           <span className="sr-only">{t("language")}</span>
         </Button>

@@ -2,5 +2,9 @@
   "appName": "نظام إدارة المخزون",
   "notifications": "الإشعارات",
   "theme": "المظهر",
-  "language": "اللغة"
+  "language": "اللغة",
+  "userProfile": "الملف الشخصي",
+  "settings": "الإعدادات",
+  "help": "المساعدة",
+  "logout": "تسجيل الخروج"
 }

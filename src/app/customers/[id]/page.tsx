@@ -262,7 +262,7 @@ export default function CustomerDetailsPage({ params }: { params: Promise<{ id: 
                       <div className="flex-1">
                         <div className="font-medium">{t('orderNumberPrefix')} #{order.id}</div>
                         <div className="text-sm text-muted-foreground">
-                          {order.date} • {order.items} {t('products.title')} • {order.total} {t('currencySymbol')}
+                          {order.date} • {order.items} {tCommon('products')} • {order.total} {t('currencySymbol')}
                         </div>
                       </div>
                       <div className={`px-2 py-1 rounded-full text-xs ${getStatusColor(order.status)}`}>

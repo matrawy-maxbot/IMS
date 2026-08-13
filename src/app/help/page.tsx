@@ -1,19 +1,48 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { Search, HelpCircle, FileText, MessageCircle, Phone, Mail, Video, BookOpen, ArrowRight, Package, ShoppingCart, Users, BarChart, Settings } from "lucide-react";
+import { Search, HelpCircle, FileText, BookOpen, ArrowRight, Package, ShoppingCart, Users, BarChart, Settings, Rocket, Image, Link, MessageCircle } from "lucide-react";
 import { useTranslations } from 'next-intl';
+import { GetStartedChecklist } from "@/components/get-started-checklist";
+import EmojiPicker, { EmojiStyle, Theme, type EmojiClickData } from 'emoji-picker-react';
+import { useTheme } from "next-themes";
 
 export default function HelpPage() {
   const t = useTranslations('help');
   const tCommon = useTranslations('common');
   const tNav = useTranslations('nav');
+  const { theme } = useTheme();
+  
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [messageInput, setMessageInput] = useState("");
+  const emojiPickerRef = useRef<HTMLDivElement>(null);
+
+  // Close emoji picker when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target as Node)) {
+        setShowEmojiPicker(false);
+      }
+    };
+
+    if (showEmojiPicker) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showEmojiPicker]);
+
+  const handleEmojiSelect = (data: EmojiClickData) => {
+    setMessageInput(messageInput + data.emoji);
+  };
   
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
       </div>
@@ -30,33 +59,32 @@ export default function HelpPage() {
         <Button>{t('search')}</Button>
       </div>
 
-      <Tabs defaultValue="faq" className="space-y-4">
-        <TabsList className="grid grid-cols-4 h-auto p-1">
-          <TabsTrigger value="faq" className="py-2">
-            <div className="flex items-center gap-2">
+      <Tabs defaultValue="get-started" className="space-y-4">
+        <TabsList className="grid grid-cols-3 w-full h-auto p-1 gap-1">
+          <TabsTrigger value="get-started" className="py-3 px-4 flex-1">
+            <div className="flex items-center justify-center gap-2">
+              <Rocket className="h-4 w-4" />
+              <span className="hidden sm:inline">{t('getStarted')}</span>
+            </div>
+          </TabsTrigger>
+          <TabsTrigger value="faq" className="py-3 px-4 flex-1">
+            <div className="flex items-center justify-center gap-2">
               <HelpCircle className="h-4 w-4" />
-              <span>{t('faq')}</span>
+              <span className="hidden sm:inline">{t('faq')}</span>
             </div>
           </TabsTrigger>
-          <TabsTrigger value="guides" className="py-2">
-            <div className="flex items-center gap-2">
-              <FileText className="h-4 w-4" />
-              <span>{t('guides')}</span>
-            </div>
-          </TabsTrigger>
-          <TabsTrigger value="videos" className="py-2">
-            <div className="flex items-center gap-2">
-              <Video className="h-4 w-4" />
-              <span>{t('videos')}</span>
-            </div>
-          </TabsTrigger>
-          <TabsTrigger value="contact" className="py-2">
-            <div className="flex items-center gap-2">
+          <TabsTrigger value="contact" className="py-3 px-4 flex-1">
+            <div className="flex items-center justify-center gap-2">
               <MessageCircle className="h-4 w-4" />
-              <span>{t('contact')}</span>
+              <span className="hidden sm:inline">{t('contact')}</span>
             </div>
           </TabsTrigger>
         </TabsList>
+
+        {/* Get Started Tab */}
+        <TabsContent value="get-started" className="space-y-6">
+          <GetStartedChecklist />
+        </TabsContent>
 
         {/* الأسئلة الشائعة */}
         <TabsContent value="faq" className="space-y-6">
@@ -139,223 +167,202 @@ export default function HelpPage() {
           </div>
         </TabsContent>
 
-        {/* أدلة الاستخدام */}
-        <TabsContent value="guides" className="space-y-6">
-          <div className="grid gap-6 md:grid-cols-3">
-            {[
-              { title: t('quickStartGuide'), description: t('quickStartGuideDesc'), icon: BookOpen },
-              { title: t('productManagement'), description: t('productManagementDesc'), icon: Package },
-              { title: t('orderManagement'), description: t('orderManagementDesc'), icon: ShoppingCart },
-              { title: t('customerManagement'), description: t('customerManagementDesc'), icon: Users },
-              { title: t('reportsAndAnalytics'), description: t('reportsAndAnalyticsDesc'), icon: BarChart },
-              { title: t('systemSettings'), description: t('systemSettingsDesc'), icon: Settings }
-            ].map((guide, index) => (
-              <Card key={index} className="overflow-hidden">
-                <CardHeader className="pb-0">
-                  <div className="flex items-center gap-2">
-                    <guide.icon className="h-5 w-5 text-primary" />
-                    <CardTitle className="text-lg">{guide.title}</CardTitle>
-                  </div>
-                  <CardDescription>{guide.description}</CardDescription>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <Button variant="outline" className="w-full justify-between">
-                    <span>{t('readGuide')}</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('advancedGuides')}</CardTitle>
-              <CardDescription>{t('advancedGuidesDesc')}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {[
-                  { title: t('advancedInventory'), description: t('advancedInventoryDesc') },
-                  { title: t('analyticsAndBI'), description: t('analyticsAndBIDesc') },
-                  { title: t('systemIntegration'), description: t('systemIntegrationDesc') },
-                  { title: t('userManagementGuide'), description: t('userManagementGuideDesc') }
-                ].map((guide, index) => (
-                  <div key={index} className="flex items-start gap-4 border-b pb-4 last:border-0 last:pb-0">
-                    <FileText className="h-5 w-5 text-primary mt-0.5" />
-                    <div>
-                      <div className="font-medium">{guide.title}</div>
-                      <div className="text-sm text-muted-foreground">{guide.description}</div>
-                      <Button variant="link" className="px-0 py-1 h-auto">
-                        {t('readGuide')}
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* فيديوهات تعليمية */}
-        <TabsContent value="videos" className="space-y-6">
-          <div className="grid gap-6 md:grid-cols-2">
-            {[
-              { title: t('videoIntro'), duration: "5:30", thumbnail: "bg-gray-200" },
-              { title: t('videoProducts'), duration: "8:45", thumbnail: "bg-gray-200" },
-              { title: t('videoOrders'), duration: "7:20", thumbnail: "bg-gray-200" },
-              { title: t('videoCustomers'), duration: "6:15", thumbnail: "bg-gray-200" }
-            ].map((video, index) => (
-              <Card key={index} className="overflow-hidden">
-                <div className={`aspect-video ${video.thumbnail} relative flex items-center justify-center`}>
-                  <div className="h-12 w-12 rounded-full bg-black/50 flex items-center justify-center">
-                    <div className="h-0 w-0 border-y-8 border-y-transparent border-l-12 border-l-white ml-1"></div>
-                  </div>
-                  <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-                    {video.duration}
-                  </div>
-                </div>
-                <CardHeader>
-                  <CardTitle className="text-lg">{video.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <Button variant="outline" className="w-full">
-                    {t('watchVideo')}
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('videoSeriesTitle')}</CardTitle>
-              <CardDescription>{t('videoSeriesDesc')}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {[
-                  { title: t('lesson1'), duration: "10:15" },
-                  { title: t('lesson2'), duration: "12:30" },
-                  { title: t('lesson3'), duration: "15:45" },
-                  { title: t('lesson4'), duration: "11:20" },
-                  { title: t('lesson5'), duration: "14:10" }
-                ].map((lesson, index) => (
-                  <div key={index} className="flex items-center justify-between border-b pb-4 last:border-0 last:pb-0">
-                    <div className="flex items-center gap-3">
-                      <div className="h-8 w-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-medium">
-                        {index + 1}
-                      </div>
-                      <div className="font-medium">{lesson.title}</div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="text-sm text-muted-foreground">{lesson.duration}</div>
-                      <Button variant="ghost" size="sm">
-                        {t('watch')}
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
         {/* اتصل بنا */}
         <TabsContent value="contact" className="space-y-6">
-          <div className="grid gap-6 md:grid-cols-3">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Phone className="h-5 w-5 text-primary" />
-                  <span>{t('phoneSupport')}</span>
-                </CardTitle>
-                <CardDescription>{t('phoneSupportDesc')}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="text-xl font-bold">+966 12 345 6789</div>
-                <div className="text-sm text-muted-foreground">
-                  {t('availableTime')}<br />
-                  {t('workingHours')}
-                </div>
-                <Button className="w-full">
-                  {t('callNow')}
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Mail className="h-5 w-5 text-primary" />
-                  <span>{t('emailSupport')}</span>
-                </CardTitle>
-                <CardDescription>{t('emailSupportDesc')}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="text-xl font-bold">support@example.com</div>
-                <div className="text-sm text-muted-foreground">
-                  {t('emailResponseTime')}
-                </div>
-                <Button className="w-full">
-                  {t('sendEmail')}
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MessageCircle className="h-5 w-5 text-primary" />
-                  <span>{t('liveChat')}</span>
-                </CardTitle>
-                <CardDescription>{t('liveChatDesc')}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="text-xl font-bold">{t('availableNow')}</div>
-                <div className="text-sm text-muted-foreground">
-                  {t('avgWaitTime')}
-                </div>
-                <Button className="w-full">
-                  {t('startChat')}
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>{t('sendInquiry')}</CardTitle>
-              <CardDescription>{t('sendInquiryDesc')}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium">{tCommon('name')}</label>
-                    <Input id="name" placeholder={t('enterName')} />
+          <Card className="mx-auto rounded-[1.25rem]">
+            <CardContent className="p-0">
+              <div className="grid md:grid-cols-[300px,1fr] h-[600px]">
+                {/* Sidebar */}
+                <div className="border-r border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 overflow-y-auto rounded-bl-[1.25rem] rounded-tl-[1.25rem]">
+                  <div className="flex items-center justify-between mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+                    <h3 className="font-semibold text-sm text-slate-900 dark:text-gray-100 flex gap-2"><MessageCircle className="h-4 w-4" />{t('liveChat')}</h3>
                   </div>
+                  
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium">{tCommon('email')}</label>
-                    <Input id="email" type="email" placeholder={t('enterEmail')} />
+                    {[
+                      { name: "TClinet", email: "tclinet@gmail.com", time: "03:55 PM", message: "Hello man", status: "CLIENT", unread: false, isOnline: true },
+                      { name: "DOEP", email: "", time: "06:42 PM", message: "كلامك صح زي ماتقول يعني دايما", status: "ADMIN", unread: false, isOnline: true },
+                      { name: "محمد العلال", email: "transAdvnomo@gmail.com", time: "", message: "مش عارف والله بس ياريت نبقي نتواصل", status: "CLIENT", unread: false, isOnline: false },
+                      { name: "TClinet", email: "tclinetahman1@gmail.com", time: "", message: "حلو نوص", status: "CLIENT", unread: false, isOnline: true },
+                      { name: "lopeffer jualig", email: "lopeffer:8000@gmail.com", time: "", message: "No messages yet", status: "CLIENT", unread: false, isOnline: false }
+                    ].map((chat, index) => (
+                      <div 
+                        key={index}
+                        className={`p-3 rounded-lg cursor-pointer transition-colors ${
+                          index === 0 ? 'bg-slate-100 dark:bg-slate-800' : 'hover:bg-slate-100 dark:hover:bg-slate-800'
+                        }`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="relative h-10 w-10 flex-shrink-0">
+                            <div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold text-sm">
+                              {chat.name.charAt(0)}
+                            </div>
+                            <div className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white dark:border-slate-900 ${
+                              chat.isOnline ? 'bg-green-500 dark:bg-green-400' : 'bg-slate-300 dark:bg-slate-700'
+                            }`} />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between gap-2">
+                              <div className="font-medium truncate text-slate-900 dark:text-gray-100 text-sm">{chat.name}
+                                {chat.status && (
+                                <div className={`text-xs px-2 py-0.5 rounded-full inline-block ml-2 ${
+                                  chat.status === 'CLIENT' 
+                                    ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400' 
+                                    : 'bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-400'
+                                }`}>
+                                  {chat.status}
+                                </div>
+                              )}
+                              </div>
+                              {chat.time && (
+                                <div className="text-xs text-slate-500 dark:text-gray-400">{chat.time}</div>
+                              )}
+                            </div>
+                            {chat.email && (
+                              <div className="text-xs text-slate-600 dark:text-gray-500 truncate">{chat.email}</div>
+                            )}
+                            {chat.message && (
+                              <div className="text-xs text-slate-600 dark:text-gray-400 truncate mt-1">
+                                {chat.message}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label htmlFor="subject" className="text-sm font-medium">{t('subject')}</label>
-                  <Input id="subject" placeholder={t('enterSubject')} />
+
+                {/* Chat Area */}
+                <div className="flex flex-col">
+                  {/* Chat Header */}
+                  <div className="border-b border-slate-200 dark:border-slate-700 p-4 bg-slate-50 dark:bg-slate-900 flex items-center justify-between rounded-tr-[1.25rem]">
+                    <div className="flex items-center gap-3">
+                      <div className="relative h-10 w-10 flex-shrink-0">
+                        <div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-sm">
+                          T
+                        </div>
+                        <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white dark:border-slate-900 bg-green-500" />
+                      </div>
+                      <div>
+                        <div className="font-semibold text-slate-900 dark:text-gray-100 text-sm">TClinet
+                          <div className="text-xs px-2 py-0.5 rounded-full inline-block ml-2 bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400">CLIENT</div>
+                        </div>
+                        <div className="text-xs text-slate-500 dark:text-gray-400">tclinet@gmail.com</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Messages */}
+                  <div className="flex-1 overflow-y-auto bg-white dark:bg-slate-950">
+                    <div className="space-y-4 p-6">
+                      {/* Received Message */}
+                      <div className="flex items-start gap-3">
+                        <div className="relative h-8 w-8 flex-shrink-0">
+                          <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm font-semibold">
+                            T
+                          </div>
+                          <div className="absolute bottom-0 right-0 w-2 h-2 rounded-full border border-white dark:border-slate-950 bg-green-500" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-xs text-slate-500 dark:text-gray-400 mb-2">TClinet • <div className="text-xs px-2 py-0.5 rounded-full inline-block bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-400">CLIENT</div> • 06:02 PM</div>
+                          <div className="bg-slate-100 dark:bg-slate-800 rounded-2xl px-4 py-3 w-fit">
+                            <div className="text-sm text-slate-900 dark:text-gray-100">Hello broo!!</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Sent Message */}
+                      <div className="flex items-start gap-3 justify-end">
+                        <div className="flex-1 flex flex-col items-end">
+                          <div className="text-xs text-slate-500 dark:text-gray-400 mb-2">06:42 PM • <div className="text-xs px-2 py-0.5 rounded-full inline-block bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-400">ADMIN</div> • Elshdaey</div>
+                          <div className="bg-blue-600 dark:bg-blue-600 rounded-2xl px-4 py-3 w-fit">
+                            <div className="text-sm text-white">Hello man</div>
+                          </div>
+                        </div>
+                        <div className="relative h-8 w-8 flex-shrink-0">
+                          <div className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm font-semibold">
+                            E
+                          </div>
+                          <div className="absolute bottom-0 right-0 w-2 h-2 rounded-full border border-white dark:border-slate-950 bg-green-500" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Input Area */}
+                  <div className="border-t border-slate-200 dark:border-slate-700 p-4 bg-slate-50 dark:bg-slate-900 rounded-br-[1.25rem]">
+                    <div className="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 rounded-xl px-4 py-3 relative">
+                      {/* Media Attachment Icons */}
+                      <div className="flex items-center gap-2">
+                        <button 
+                          className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-200"
+                          title="إضافة صورة"
+                        >
+                          <Image className="h-5 w-5" />
+                        </button>
+                        <button 
+                          className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-200"
+                          title="إضافة فيديو"
+                        >
+                          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </button>
+                        <button 
+                          className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-200"
+                          title="إضافة ملف"
+                        >
+                          <Link className="h-5 w-5" />
+                        </button>
+                      </div>
+
+                      {/* Input Field */}
+                      <Input
+                        placeholder={t('typeMessage')}
+                        value={messageInput}
+                        onChange={(e) => setMessageInput(e.target.value)}
+                        className="flex-1 border-0 bg-transparent placeholder:text-slate-400 dark:placeholder:text-gray-500 focus-visible:ring-0 text-slate-900 dark:text-gray-100 text-sm"
+                      />
+
+                      {/* Emoji Button */}
+                      <div className="relative">
+                        <button 
+                          onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                          className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-lg"
+                          title="أضف رموز تعبيرية"
+                        >
+                          😊
+                        </button>
+
+                        {/* Emoji Picker Dropdown */}
+                        {showEmojiPicker && (
+                          <div ref={emojiPickerRef} className="absolute bottom-full right-0 mb-2 z-50">
+                            <EmojiPicker
+                              theme={theme === 'dark' ? Theme.DARK : Theme.LIGHT}
+                              width={320}
+                              height={400}
+                              lazyLoadEmojis
+                              searchDisabled={true}
+                              emojiStyle={EmojiStyle.NATIVE}
+                              previewConfig={{ showPreview: false }}
+                              onEmojiClick={handleEmojiSelect}
+                            />
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Send Button */}
+                      <button 
+                        className="p-2.5 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors text-white flex items-center justify-center"
+                        title="إرسال"
+                      >
+                        <ArrowRight className="h-5 w-5" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium">{t('message')}</label>
-                  <textarea
-                    id="message"
-                    rows={5}
-                    placeholder={t('writeMessage')}
-                    className="w-full p-2 border rounded-md resize-none"
-                  ></textarea>
-                </div>
-                <Button className="w-full">
-                  {t('sendInquiry')}
-                </Button>
               </div>
             </CardContent>
           </Card>

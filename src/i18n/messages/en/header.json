@@ -2,5 +2,9 @@
   "appName": "Inventory Management System",
   "notifications": "Notifications",
   "theme": "Theme",
-  "language": "Language"
+  "language": "Language",
+  "userProfile": "User Profile",
+  "settings": "Settings",
+  "help": "Help",
+  "logout": "Log Out"
 }

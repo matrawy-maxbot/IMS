@@ -18,7 +18,7 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ id: s
   // في الواقع، ستقوم بجلب بيانات المنتج باستخدام معرف المنتج (id)
   // هذه بيانات تجريبية فقط
   const product = {
-    id,
+    id: 555,
     name: "لابتوب HP ProBook",
     code: "PRD-" + id,
     description: "لابتوب HP ProBook بمعالج Intel Core i7، ذاكرة 16 جيجابايت، وقرص SSD سعة 512 جيجابايت. مثالي للاستخدام المكتبي والمهني.",

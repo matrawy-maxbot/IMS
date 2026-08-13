@@ -146,16 +146,16 @@ export default function AuditLog() {
   };
 
   // Get badge variant based on action type
-  const getActionBadge = (actionType: string) => {
-    const variants: Record<string, { variant: "default" | "secondary" | "destructive" | "outline", color: string }> = {
-      create: { variant: "default", color: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" },
-      update: { variant: "secondary", color: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200" },
-      delete: { variant: "destructive", color: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200" },
-      login: { variant: "outline", color: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200" },
-      export: { variant: "outline", color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200" },
+  const getActionBadge = (actionType: string, action: string) => {
+    const styles: Record<string, string> = {
+      create: "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/30 dark:text-emerald-400 border-0",
+      update: "bg-cyan-100 text-cyan-900 dark:bg-cyan-900/30 dark:text-cyan-400 border-0",
+      delete: "bg-rose-100 text-rose-900 dark:bg-rose-900/30 dark:text-rose-400 border-0",
+      login: "bg-violet-100 text-violet-900 dark:bg-violet-900/30 dark:text-violet-400 border-0",
+      export: "bg-amber-100 text-amber-900 dark:bg-amber-900/30 dark:text-amber-400 border-0",
     };
     
-    return variants[actionType] || variants.update;
+    return styles[actionType] || styles.update;
   };
 
   return (
@@ -325,7 +325,7 @@ export default function AuditLog() {
                       </TableCell>
                       <TableCell className="font-medium">{log.user}</TableCell>
                       <TableCell>
-                        <Badge className={getActionBadge(log.actionType).color}>
+                        <Badge className={`${getActionBadge(log.actionType, log.action)} font-medium px-3 py-1 rounded-full`}>
                           {log.action}
                         </Badge>
                       </TableCell>

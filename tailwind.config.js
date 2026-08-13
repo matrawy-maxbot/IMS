@@ -73,5 +73,10 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addVariant }) {
+      addVariant('rtl', '[dir="rtl"] &')
+      addVariant('ltr', '[dir="ltr"] &')
+    }
+  ],
 }

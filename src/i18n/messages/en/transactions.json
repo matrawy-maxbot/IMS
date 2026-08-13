@@ -37,5 +37,7 @@
   "completed": "Completed",
   "pending": "Pending",
   "cancelled": "Cancelled",
-  "processing": "Processing"
+  "processing": "Processing",
+  "month": "Month",
+  "lastWeek": "last week"
 }

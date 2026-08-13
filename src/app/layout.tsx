@@ -5,11 +5,13 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Sidebar } from "@/components/sidebar";
 import { Header } from "@/components/header";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "sonner";
 import { UIProvider } from "@/components/providers";
+import { WarehouseProvider } from "@/contexts/warehouse-context";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { cookies } from 'next/headers';
+import { OnboardingChecklist } from "@/components/onboarding-checklist";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +46,11 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={direction} suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet"/>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${tajawal.variable} font-sans antialiased`}
       >
@@ -55,16 +62,19 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <UIProvider>
-              <div className="flex min-h-screen flex-col">
-                <Header />
-                <div className="flex flex-1">
-                  <aside className="hidden w-64 border-r md:block">
-                    <Sidebar />
-                  </aside>
-                  <main className="flex-1 p-6">{children}</main>
+              <WarehouseProvider>
+                <div className="flex min-h-screen flex-col">
+                  <Header />
+                  <div className="flex flex-1">
+                    <aside className="hidden w-64 border-r border-border/40 md:block bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" style={{ height: 'calc(100vh - 4rem)' }}>
+                      <Sidebar />
+                    </aside>
+                    <main className="flex-1 p-6 bg-muted/20">{children}</main>
+                  </div>
+                  <Toaster position="bottom-right" expand={false} richColors closeButton />
+                  <OnboardingChecklist />
                 </div>
-                <Toaster />
-              </div>
+              </WarehouseProvider>
             </UIProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

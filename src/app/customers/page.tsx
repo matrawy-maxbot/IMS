@@ -118,7 +118,7 @@ export default function CustomersPage() {
               <span>{tCommon('export')}</span>
             </Button>
             <Link href="/customers/add">
-              <Button className="flex items-center gap-1">
+              <Button className="flex items-center gap-1" data-tour="add-customer-btn">
                 <Plus className="h-4 w-4" />
                 <span>{t('addCustomer')}</span>
               </Button>
@@ -126,7 +126,7 @@ export default function CustomersPage() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6" data-tour="customers-search">
             <div className="flex items-center gap-2 w-full md:w-auto">
               <Input 
                 placeholder={tCommon('search')}
@@ -152,7 +152,7 @@ export default function CustomersPage() {
               <span>{tCommon('filter')}</span>
             </Button>
           </div>
-          <div className="rounded-md border overflow-hidden">
+          <div className="rounded-md border overflow-hidden" data-tour="customers-table">
             <Table style={locale === 'en' ? { direction: 'ltr', textAlignLast: 'left' } : { direction: 'rtl', textAlignLast: 'right' }}>
               <TableHeader>
                 <TableRow>

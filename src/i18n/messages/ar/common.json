@@ -43,5 +43,10 @@
   "image": "الصورة",
   "name": "الاسم",
   "description": "الوصف",
-  "notes": "ملاحظات"
+  "notes": "ملاحظات",
+  "appName": "نظام إدارة المخزون",
+  "appTagline": "حلول ذكية لإدارة المخزون",
+  "allRightsReserved": "جميع الحقوق محفوظة",
+  "editInformation": "قم بتعديل المعلومات أدناه",
+  "products": "منتجات"
 }

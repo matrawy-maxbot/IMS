@@ -62,5 +62,8 @@
   "activityUpdateInfo": "تحديث معلومات العميل",
   "activityUpdatePhone": "تم تحديث رقم الهاتف",
   "activityAccountCreated": "إنشاء حساب",
-  "activityCustomerRegistered": "تم تسجيل العميل"
+  "activityCustomerRegistered": "تم تسجيل العميل",
+  "gender": "الجنس",
+  "male": "ذكر",
+  "female": "أنثى"
 }

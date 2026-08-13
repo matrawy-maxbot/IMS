@@ -172,6 +172,13 @@ function toast({ ...props }: Toast) {
   }
 }
 
+// Enhanced toast API with better ergonomics
+const toastAPI = {
+  add: (props: Toast) => toast(props),
+  close: (toastId: string) => dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),
+  dismiss: (toastId?: string) => dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),
+}
+
 function useToast() {
   const [state, setState] = React.useState<State>(memoryState)
 

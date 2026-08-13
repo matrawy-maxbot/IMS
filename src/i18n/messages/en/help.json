@@ -1,5 +1,6 @@
 {
   "title": "Help & Support",
+  "getStarted": "Get Started",
   "faq": "Frequently Asked Questions",
   "guides": "User Guides",
   "videos": "Tutorial Videos",
@@ -95,5 +96,6 @@
   "enterName": "Enter your name",
   "enterEmail": "Enter your email",
   "enterSubject": "Enter the inquiry subject",
-  "writeMessage": "Write your message here..."
+  "writeMessage": "Write your message here...",
+  "typeMessage": "Type your reply to the client..."
 }

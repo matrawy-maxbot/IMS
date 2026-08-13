@@ -1,5 +1,6 @@
 {
   "dashboard": "لوحة التحكم",
+  "warehouses": "المخازن",
   "addOrder": "إضافة طلب",
   "products": "المنتجات",
   "orders": "الطلبات",
@@ -8,5 +9,8 @@
   "auditLog": "سجل المراجعة",
   "reports": "التقارير",
   "settings": "الإعدادات",
-  "help": "المساعدة والدعم"
+  "help": "المساعدة والدعم",
+  "currentWarehouse": "المخزن الحالي",
+  "manageWarehouses": "إدارة المخازن",
+  "allRightsReserved": "جميع الحقوق محفوظة"
 }

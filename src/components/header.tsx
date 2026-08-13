@@ -2,9 +2,11 @@
 
 import { ModeToggle } from "@/components/mode-toggle";
 import { LanguageToggle } from "@/components/language-toggle";
-import { Search } from "lucide-react";
+import { UserDropdown } from "@/components/user-dropdown";
+import { Package } from "lucide-react";
 import { NotificationsDropdown } from "@/components/notifications-dropdown";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 export function Header() {
   const t = useTranslations('common');
@@ -12,21 +14,25 @@ export function Header() {
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <div className="flex flex-1 items-center gap-4 md:gap-6">
-        <form className="hidden flex-1 sm:flex">
-          <div className="relative">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <input
-              type="search"
-              placeholder={t('search')}
-              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pl-8 pr-3"
-            />
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all">
+            <Package className="h-5 w-5 text-primary-foreground" strokeWidth={2.5} />
           </div>
-        </form>
+          <div className="hidden sm:block">
+            <h1 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+              {t('appName')}
+            </h1>
+            <p className="text-xs text-muted-foreground -mt-0.5">
+              {t('appTagline')}
+            </p>
+          </div>
+        </Link>
       </div>
       <div className="flex items-center gap-2">
         <LanguageToggle />
         <NotificationsDropdown />
         <ModeToggle />
+        <UserDropdown />
       </div>
     </header>
   );

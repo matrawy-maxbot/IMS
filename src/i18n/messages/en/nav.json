@@ -1,5 +1,6 @@
 {
   "dashboard": "Dashboard",
+  "warehouses": "Warehouses",
   "addOrder": "Add Order",
   "products": "Products",
   "orders": "Orders",
@@ -8,5 +9,8 @@
   "auditLog": "Audit Log",
   "reports": "Reports",
   "settings": "Settings",
-  "help": "Help & Support"
+  "help": "Help & Support",
+  "currentWarehouse": "Current Warehouse",
+  "manageWarehouses": "Manage Warehouses",
+  "allRightsReserved": "All rights reserved"
 }

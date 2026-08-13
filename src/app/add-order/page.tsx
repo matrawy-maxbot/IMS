@@ -116,7 +116,7 @@ export default function AddOrderPage() {
               <CardTitle>{t("customerInfo.title")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-end gap-2">
+              <div className="flex items-end gap-2" data-tour="order-customer-select">
                 <div className="flex-1 space-y-2">
                   <Label htmlFor="customer-search">{t("customerInfo.searchLabel")}</Label>
                   <Input 
@@ -153,6 +153,7 @@ export default function AddOrderPage() {
                 size="sm" 
                 className="flex items-center gap-1"
                 onClick={handleAddProduct}
+                data-tour="order-products-select"
               >
                 <Plus className="h-4 w-4" />
                 <span>{t("products.addButton")}</span>
@@ -256,7 +257,7 @@ export default function AddOrderPage() {
             <CardHeader>
               <CardTitle>{t("summary.title")}</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4" data-tour="order-summary">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">{t("summary.subtotal")}</span>
                 <span>{subtotal.toFixed(2)} {t("currency")}</span>
