@@ -637,15 +637,6 @@ export default function SettingsPage() {
                       <input type="checkbox" id="new-customer" className="h-4 w-4" defaultChecked />
                     </div>
                   </div>
-                  <div className="flex items-center justify-between border p-4 rounded-md">
-                    <div className="space-y-0.5">
-                      <div className="font-medium">{t('creditLimitAlert')}</div>
-                      <div className="text-sm text-muted-foreground">{t('creditLimitAlertDesc')}</div>
-                    </div>
-                    <div className="flex items-center">
-                      <input type="checkbox" id="credit-limit" className="h-4 w-4" defaultChecked />
-                    </div>
-                  </div>
                 </div>
               </div>
 
@@ -659,15 +650,6 @@ export default function SettingsPage() {
                     </div>
                     <div className="flex items-center">
                       <input type="checkbox" id="system-notifications" className="h-4 w-4" defaultChecked />
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between border p-4 rounded-md">
-                    <div className="space-y-0.5">
-                      <div className="font-medium">{t('emailNotifications')}</div>
-                      <div className="text-sm text-muted-foreground">{t('emailNotificationsDesc')}</div>
-                    </div>
-                    <div className="flex items-center">
-                      <input type="checkbox" id="email-notifications" className="h-4 w-4" defaultChecked />
                     </div>
                   </div>
                 </div>
